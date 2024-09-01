@@ -1,0 +1,33 @@
+.bus-ticket {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  background: rgb(231, 226, 226);
+}
+
+.ticket-header {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.ticket-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.detail-item {
+  flex-basis: 50%;
+  margin-bottom: 10px;
+}
+
+.detail-item label {
+  display: block;
+  font-weight: bold;
+}
+
+.boarding-pass {
+  margin-top: 20px;
+  border-top: 1px solid black;
+  padding-top: 10px;
+}

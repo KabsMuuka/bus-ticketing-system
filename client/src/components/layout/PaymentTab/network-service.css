@@ -1,0 +1,102 @@
+/* PAYMENT LOGO */
+.networkContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  align-items: center;
+}
+.Network-indiviual-component {
+  display: flex;
+  background: rgb(228, 228, 228);
+  margin-top: 10px;
+  border: solid thin white;
+  border-radius: 4px;
+  width: 50%;
+  height: 60px;
+}
+.networkSevice {
+  margin-top: 10px;
+  margin-right: 12px;
+  width: 40px;
+}
+
+.label-network {
+  display: flex;
+  font-family: "Courier New", Courier, monospace;
+  margin-top: 3px;
+  font-size: small;
+}
+.arrow {
+  margin-left: 65%;
+}
+
+.arrow-icon {
+  margin-top: 100%;
+  width: 20px;
+}
+/* End of PAYMENT design */
+
+/* Aritel service  */
+
+.network-content {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.918);
+  padding: 10px;
+}
+.network-content p {
+  color: rgb(3, 1, 1);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+}
+
+.airtel-form {
+  background: #b6a2cfc4;
+  padding: 10px;
+  border-radius: 8px;
+}
+.airtel-form img {
+  width: 70px;
+  border-radius: 5px;
+}
+.airtel-form span {
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  margin-left: 5px;
+}
+.airtel-form p {
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  margin-left: 76px;
+}
+.airtel-form label {
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
+  margin-right: 25%;
+}
+.airtel-form input {
+  width: 30% !important;
+  font-size: smaller !important;
+}
+.airtel-form button {
+  width: 15%;
+  border: none;
+  border-radius: 8px;
+  background: #ceb9b9;
+  transition: 1s;
+}
+.airtel-form button:hover {
+  background: rgba(6, 124, 63, 0.659);
+  transition: 1s;
+}
+.service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.service p {
+  color: rgb(245, 245, 245);
+  font-family: "Times New Roman", Times, serif;
+}
+/*end Aritel service  */
