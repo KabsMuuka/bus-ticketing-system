@@ -14,11 +14,10 @@
 
 body {
   background: linear-gradient(
-      to right,
-      rgba(62, 32, 233, 0.32),
-      rgba(62, 32, 233, 0.32)
-    ),
-    url("../public/Charter-bus.jpg");
+    to right,
+    rgb(115 105 176 / 32%),
+    rgb(73 72 74 / 40%)
+  );
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
@@ -116,7 +115,7 @@ h5 {
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   letter-spacing: 2px;
-  background: linear-gradient(to right, #ccc, #ffc20b);
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -130,7 +129,7 @@ h5 {
   text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   letter-spacing: 2px;
-  background: linear-gradient(to right, #ccc, #ffc20b);
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -501,7 +500,7 @@ button {
 /* Profile Page */
 
 .profile-grid {
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   gap: 1rem; /* Space between items */
   padding: 1rem;
@@ -1147,7 +1146,7 @@ input.form-submit {
   left: 20px;
   right: 20px;
   bottom: 20px;
-  background: #9abdc39e;
+  background: #dee2e6;
   border: 1px solid #1e1f23;
   border-radius: 15px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -1209,7 +1208,7 @@ input.form-submit {
   padding: 1rem;
 }
 .profile-container .profile-card {
-  flex: 1 1 calc(25% - 1rem); /* Adjust to fit desired number of items per row */
+  flex: 2 2 calc(25% - 2rem); /* Adjust to fit desired number of items per row */
   height: 450px;
   border-radius: 15px;
   box-sizing: border-box; /* Ensure padding and border are included in the width and height */
@@ -1228,6 +1227,7 @@ input.form-submit {
   align-items: center;
   overflow: hidden;
   height: 100%; /* Ensure it takes up the full height of the card */
+  width: 130%;
 }
 
 .profile-container .profile-card .profile-box:before {

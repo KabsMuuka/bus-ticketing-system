@@ -24,13 +24,14 @@ router.post("/", auth, async (req, res) => {
   } = req.body;
   try {
     const [user, metadata] = await sequelize.query("SELECT * FROM Users");
+
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
     user.map(async (data) => {
       const userId = data.id; //get an id
       //then create a new ticket entry
-      const newTicket = await BookedTickets.create({
+      await BookedTickets.create({
         passengerName,
         from,
         to,

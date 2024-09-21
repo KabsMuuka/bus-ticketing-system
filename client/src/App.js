@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
@@ -18,28 +23,24 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  const location = useLocation();
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
   return (
-    <Router>
-      {" "}
-      <Provider store={store}>
-        {" "}
-        <Fragment>
-          <Navbar />
-          {typeof Routes === "function" && (
-            <Routes>
-              {/* Check if it's a function */}
-              <Route exact path="/" element={<Landing />} />
-              <Route path="/*" element={<MyRoutes />} />
-              <Route path="*" element={<NotFound />} />
-              {/* Not Found route for unmatched paths */}
-            </Routes>
-          )}
-        </Fragment>
-      </Provider>{" "}
-    </Router>
+    <Provider store={store}>
+      <Fragment>
+        {/* Conditionally render Navbar if not on the Ticket page */}
+        {location.pathname !== "/book/ticket" && <Navbar />}
+
+        <Routes>
+          <Route exact path="/" element={<Landing />} />
+          <Route path="/*" element={<MyRoutes />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Fragment>
+    </Provider>
   );
 };
 

@@ -19,15 +19,17 @@ router.post(
       "Please enter a password with 6 or more characters"
     ).isLength({ min: 6 }),
   ],
+
   async (req, res) => {
     const errors = validationResult(req);
+    console.log(errors.array());
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     const { name, email, phoneNumber, gender, password } = req.body;
 
-    console.log(req.body);
+    console.log("from body", req.body);
 
     try {
       let user = await User.findOne({ where: { email } }); // Use Sequelize's findOne method

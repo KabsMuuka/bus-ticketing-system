@@ -29,7 +29,10 @@ import Mtn from "../layout/PaymentTab/Mtn";
 //end of payment
 
 //admin
+import Admin_lgoin from "../auth/Admin_login";
+
 import Admin_dashboard from "../layout/admin/Dashboard";
+
 //
 
 const MyRoutes = () => {
@@ -40,7 +43,8 @@ const MyRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
-        <Route path="/admin" element={<Admin_dashboard />} />
+        <Route path="/admin_login" element={<Admin_lgoin />} />
+        <Route path="/admin_dashboard" element={<Admin_dashboard />} />
         <Route
           path="/dashboard"
           element={<PrivateRoute element={<Dashboard />} />}

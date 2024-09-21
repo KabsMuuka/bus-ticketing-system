@@ -27,9 +27,10 @@ const payments = sequelize.define("Payments", {
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     model: User,
     key: "id",
+    allowNull: true,
+    onDelete: "SET NULL", // Apply ON DELETE SET NULL
   },
 });
 // Define associations

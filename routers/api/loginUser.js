@@ -25,12 +25,16 @@ router.post(
       const user = await User.findOne({ where: { email } });
 
       if (!user) {
-        return res.status(400).json({ errors: [{ msg: "Invalid data" }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Incorrect credentials " }] });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(400).json({ errors: [{ msg: "Invalid data" }] });
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Incorrect password" }] });
       }
 
       const payload = {

@@ -200,7 +200,6 @@ export const popularRoutes = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/cities");
 
-    console.log(res);
     dispatch({
       type: GET_POPULAR_ROUTES,
       payload: res.data,
@@ -377,7 +376,6 @@ export const verifyPayment = () => async (dispatch) => {
 export const ticket_codes = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/admin");
-    console.log(res);
     dispatch({
       type: TICKET_CODES,
       payload: res.data,

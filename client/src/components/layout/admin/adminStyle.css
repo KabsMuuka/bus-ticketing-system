@@ -1,4 +1,60 @@
-/* span > p {
-  margin-top: 20px;
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 2rem auto;
+  width: 70%;
+  background-color: #f5f5f5;
+}
+
+.search-button {
+  border-radius: 5px;
+  padding: 2px;
+  width: 30%;
+  border: none;
+  background-color: dodgerblue;
+  transition: 2s;
+}
+.search-button:hover {
+  transition: 2s;
+  background-color: gray;
+}
+
+.admin-panel h1 {
+  margin-bottom: 1rem;
+  font-family: cursive;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 50%;
+  margin-bottom: 1rem;
+}
+
+.ticket-title {
+  margin-bottom: 1rem;
+}
+
+.ticket-codes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ticket-code {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.no-codes {
   text-align: center;
-} */
+  margin-top: 1rem;
+}

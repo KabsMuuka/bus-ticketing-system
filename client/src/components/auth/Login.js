@@ -30,6 +30,7 @@ const Login = ({ login, isAuthenticated }) => {
               <div className="row sgnUp ">
                 <div className="col-md-6 right-divider pdding">
                   <h3 className="lead-text mn-txt">Signin Here</h3>
+
                   <div className="icon-soc-fb">
                     <FaFacebookF />
                   </div>
@@ -81,6 +82,10 @@ const Login = ({ login, isAuthenticated }) => {
                         </small>
                         <span className="signuptext">
                           <Link to="/register">Sign-Up</Link>
+                        </span>
+
+                        <span>
+                          <Link to={"/admin_login"}>Login as Admin </Link>
                         </span>
                       </div>
                     </form>

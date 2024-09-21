@@ -77,10 +77,11 @@ export default function TicketPage() {
         </span>
 
         <span>
-          <strong>From: </strong> {from}
+          <strong>From : </strong> {from}
         </span>
+        <br />
         <span>
-          <strong>To: </strong> {to}
+          <strong>Destination : </strong> {to}
         </span>
       </div>
     );
@@ -119,8 +120,11 @@ export default function TicketPage() {
     let time = localStorage.getItem("time");
     return (
       <p>
-        <strong> On: </strong>
-        {DATE}, StartOff Time <strong>{time}</strong> Hours
+        <strong> Date: </strong>
+        {DATE}
+        <br />
+        <strong> StartOff Time </strong>
+        {time} Hours
       </p>
     );
   };
@@ -166,10 +170,10 @@ export default function TicketPage() {
 
             <section className="ticket__section">
               {getLocationDATEa()}
-              <h3>Seat Numbers</h3>
+              <h3>Seat Number</h3>
               {getSeatNumbers()}
               <p>
-                Have a nice journey. <span>{getDATEeValue()}</span>
+                <span>{getDATEeValue()}</span>
               </p>
             </section>
 
@@ -180,6 +184,8 @@ export default function TicketPage() {
             <section className="ticket__section">
               <h3>Payment Method</h3>
               <p>Mobile Money</p>
+              <br />
+              Have a nice journey.
             </section>
           </div>
           <footer className="ticket__footer">

@@ -18,6 +18,7 @@ app.use("/api/deleteAccount", require("./routers/api/delete_user_account")); //d
 
 app.use("/api/register", require("./routers/api/registerUser")); //register
 app.use("/api/login", require("./routers/api/loginUser")); //login
+app.use("/api/admin_login", require("./routers/api/loginAdmin")); //login admin
 app.use("/api/cities", require("./routers/api/popularCities")); //popular cities
 app.use("/api/users", require("./routers/api/users")); //registered users
 app.use("/api/bookedTicket/save", require("./routers/api/saveTickets")); //save tickets

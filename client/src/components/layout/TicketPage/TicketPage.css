@@ -42,12 +42,14 @@
 
 .ticket__section {
   margin-bottom: 20px;
+  font-family: monospace;
 }
 
 .ticket__section h3 {
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 5px;
+  font-family: monospace;
 }
 
 .ticket__section p {

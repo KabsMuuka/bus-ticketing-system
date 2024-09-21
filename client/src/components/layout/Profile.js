@@ -36,13 +36,10 @@ const Profile = () => {
       qrCodeUrl: `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${ticket.uniqueCode}`,
     }));
 
-    // Set QRCode state only once
     setQrCode(generatedQrCodes);
-
-    console.log("Generated QR Codes:", generatedQrCodes);
   }, []);
 
-  console.log("QR", QRCode);
+  console.log("QRCode", QRCode);
   //end
 
   // console.log("currentUser", currentUser);
@@ -79,7 +76,7 @@ const Profile = () => {
     }
   };
 
-  let fromSavedTIckets;
+  let filteredTickets_uniqueCodes;
   return (
     <Fragment>
       <div className="profile-grid my-1">
@@ -120,63 +117,70 @@ const Profile = () => {
               <Fragment>
                 {savedTickets &&
                   savedTickets
-
                     .filter((ticket) => ticket.userId === currentUser.id)
-                    .map((data) => (
-                      <li key={data.id}>
-                        <div className="profile-container">
-                          <div className="profile-card">
-                            <div className="profile-box">
-                              <div className="profile-content">
-                                {/* Find and display the QR code for the current ticket */}
-                                <span>
-                                  {/* image */}
-                                  {(fromSavedTIckets = data.uniqueCode)},
-                                  {QRCode && QRCode.length > 0 ? (
-                                    // Use filter instead of map for conditional rendering
-                                    QRCode.filter((ticket) => {
-                                      const parts =
-                                        ticket.qrCodeUrl.split("&data=");
-                                      const data = parts[1];
-                                      return data && data === fromSavedTIckets; // Extract and compare UID
-                                    }).map((ticket) => (
-                                      <img
-                                        key={ticket.qrCodeUrl}
-                                        src={ticket.qrCodeUrl}
-                                        alt="QR Code"
-                                      /> // Add key prop
-                                    ))
-                                  ) : (
-                                    <p>No QR codes available</p> // Placeholder for no QR codes
-                                  )}
-                                </span>
-                                <h3>{data.busPosition}</h3>
-                                <span>
-                                  <h4>Route </h4>
-                                  <h5> {data.from + "," + data.to}</h5>
-                                </span>
-                                <span>
-                                  <h1>Time </h1>
-                                  <h3>{data.time} Hours</h3>
-                                </span>
-                                <span>
-                                  <h3>Date</h3>
-                                  <h4>{data.date}</h4>
-                                </span>
-                                <button
-                                  className="btn btn-danger"
-                                  onClick={() => {
-                                    handle_deleteTicket(data.id);
-                                  }}
-                                >
-                                  Delete Bus
-                                </button>
+                    .map(
+                      (data) => (
+                        (filteredTickets_uniqueCodes = data.uniqueCode),
+                        (
+                          <li key={data.id}>
+                            <div className="profile-container">
+                              <div className="profile-card">
+                                <div className="profile-box">
+                                  <div className="profile-content">
+                                    {/* Find and display the QR code for the current ticket */}
+                                    <span>
+                                      {/* image */}
+                                      {QRCode && QRCode.length > 0 ? (
+                                        // Use filter instead of map for conditional rendering
+                                        QRCode.filter((ticket) => {
+                                          const parts =
+                                            ticket.qrCodeUrl.split("&data=");
+                                          const data = parts[1];
+                                          console.log("data part", data);
+                                          return (
+                                            data === filteredTickets_uniqueCodes
+                                          ); // Extract and compare UID
+                                        }).map((ticket) => (
+                                          <img
+                                            key={ticket.qrCodeUrl}
+                                            src={ticket.qrCodeUrl}
+                                            alt="QR Code"
+                                          /> // Add key prop
+                                        ))
+                                      ) : (
+                                        <p>No QR codes available</p> // Placeholder for no QR codes
+                                      )}
+                                    </span>
+                                    <h3>{data.busPosition}</h3>
+                                    <span>
+                                      <h4>Route </h4>
+                                      <h5> {data.from + "," + data.to}</h5>
+                                    </span>
+                                    <span>
+                                      <h1>Time </h1>
+                                      <h3>{data.time} Hours</h3>
+                                    </span>
+                                    <span>
+                                      <h3>Date</h3>
+
+                                      <h4>{data.date.split("T")[0]}</h4>
+                                    </span>
+                                    <button
+                                      className="btn btn-danger"
+                                      onClick={() => {
+                                        handle_deleteTicket(data.id);
+                                      }}
+                                    >
+                                      Delete Bus
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
+                          </li>
+                        )
+                      )
+                    )}
               </Fragment>
             ) : (
               <h4 className="noTicketsFound">No Tickets Found.</h4>
