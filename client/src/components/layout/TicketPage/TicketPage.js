@@ -9,6 +9,8 @@ export default function TicketPage() {
   // actions and ensure proper use of the useEffect hook.
   const dispatch = useDispatch(); //now simply wrap addTicket using dispatch
 
+  console.log(localStorage);
+
   const [qrSrc, setQrSrc] = useState("");
 
   useEffect(() => {
@@ -25,34 +27,41 @@ export default function TicketPage() {
     const saveDATEa = () => {
       let from = localStorage.getItem("start");
       let to = localStorage.getItem("destination");
-      let passengerName = localStorage.getItem("nameData");
+      let currentUserId = localStorage.getItem("currentUserId");
+      let passengerName =
+        JSON.parse(localStorage.getItem("passengerName")) || [];
+
       let reservedSeats = localStorage.getItem("reservedSeats");
       // let selectedBusId = localStorage.getItem("selectedBusId");
       let date = localStorage.getItem("date");
       let time = localStorage.getItem("time");
       let busPosition = localStorage.getItem("busPosition");
       let uniqueCode = localStorage.getItem("uniqueCode");
+      let price = localStorage.getItem("price");
 
+      console.log(price);
       if (
         !from ||
-        !to ||
         !passengerName ||
+        !to ||
         !reservedSeats ||
         !time ||
         !date ||
         !busPosition ||
-        !uniqueCode
+        !uniqueCode ||
+        !price
       ) {
         console.error(
           "One or more required fields are missing in localStorage"
         );
       }
 
-      //add QR CODE
       const formDATEa = {
         passengerName,
+        currentUserId,
         from,
         to,
+        price,
         reservedSeats,
         time,
         date,
@@ -87,65 +96,40 @@ export default function TicketPage() {
     );
   };
   const getPassengerName = () => {
-    let passengerName = localStorage.getItem("nameData");
+    let passengerName = localStorage.getItem("passengerName");
     if (!passengerName) {
       return <p>No passenger names available</p>;
     }
     let names = JSON.parse(passengerName);
     return names.map((name, idx) => {
       return (
-        <div key={idx}>
-          <p className="names">{name}</p>
-        </div>
+        <span key={idx} className="names">
+          {name}
+        </span>
       );
     });
   };
   const getSeatNumbers = () => {
     let reservedSeats = localStorage.getItem("reservedSeats");
-    let arr = JSON.parse(reservedSeats);
-    return arr.map((reservedSeats, idx) => {
-      return (
-        <div key={idx}>
-          <p className="seatNo">{reservedSeats}</p>
-        </div>
-      );
-    });
+    return <span className="seatNo">{reservedSeats}</span>;
   };
-  const getIdNumber = () => {
-    // let selectedBusId = localStorage.getItem("selectedBusId");
-    // return <p className="idDATEa">{selectedBusId}</p>;
+  const getPrice = () => {
+    let price = localStorage.getItem("price");
+    return <span className="price">{price}</span>;
   };
   const getDATEeValue = () => {
     let DATE = localStorage.getItem("date");
     let time = localStorage.getItem("time");
     return (
-      <p>
-        <strong> Date: </strong>
+      <span>
+        <em>Date : </em>
         {DATE}
         <br />
-        <strong> StartOff Time </strong>
+        <em> StartOff Time :</em>
         {time} Hours
-      </p>
+      </span>
     );
   };
-  // const getUniqueCodeValue = () => {
-  //   let uniqueCode = localStorage.getItem("uniqueCode");
-  //   return (
-  //     <p>
-  //       TicketCode <strong>{uniqueCode}</strong>
-  //       <p>Do Not Share</p>
-  //     </p>
-  //   );
-  // };
-
-  // const getQRCode = () => {
-  //   return (
-  //     <p>
-  //       QRCode
-  //       <img id="qrImage" src={qrSrc} alt="QR Code" />
-  //     </p>
-  //   );
-  // };
 
   const printTicket = () => {
     window.print();
@@ -170,16 +154,17 @@ export default function TicketPage() {
 
             <section className="ticket__section">
               {getLocationDATEa()}
-              <h3>Seat Number</h3>
-              {getSeatNumbers()}
+              <h3>Seat Number : {getSeatNumbers()}</h3>
               <p>
                 <span>{getDATEeValue()}</span>
               </p>
             </section>
 
             <section className="ticket__section">
-              <h3>Passenger Names</h3>
-              {getPassengerName()}
+              <h3>Name : {getPassengerName()}</h3>
+            </section>
+            <section className="ticket__section">
+              <h3>Price : K{getPrice()}</h3>
             </section>
             <section className="ticket__section">
               <h3>Payment Method</h3>

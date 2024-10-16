@@ -34,14 +34,14 @@ export default function Zamtel() {
 
   return (
     <>
-      <div className="network-content">
+      <div className="network-container">
         <h5> Pay using Zamtel </h5>
         <p>
           Easily pay using Zamtel Mobile Money. Simply enter mechantID and
           amount to pay below{" "}
         </p>
       </div>
-      <form className="airtel-form">
+      <form className="zamtel-form">
         <img src="/zamtel.png" />
         <span>Your Mobile number</span>
         <p>0770309802</p>
@@ -63,7 +63,7 @@ export default function Zamtel() {
               handlePrice(e);
             }}
           />
-          <button onClick={moveToTicketPage}> Pay </button>
+          <button onClick={moveToTicketPage}> Make Payment </button>
         </div>
       </form>
     </>

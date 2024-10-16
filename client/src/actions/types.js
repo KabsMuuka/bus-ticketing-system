@@ -30,6 +30,15 @@ export const SAVE_TICKET = "SAVE_TICKET";
 export const GET_TICKETS = "GET_TICKETS";
 //DELETE TICKET
 export const REMOVE_TICKET = "REMOVE_TICKET";
+
+//STORE SELECTED SEAT
+export const STORE_SEAT = "STORE_SEAT";
+
+//GET SEAT
+export const GET_SEAT_1 = "GET_SEAT_1";
+export const GET_SEAT_2 = "GET_SEAT_2";
+export const GET_SEAT_3 = "GET_SEAT_3";
+
 //MAKE PAYMENTS
 export const REQUEST_TO_PAY = "REQUEST_TO_PAY";
 //get verified payed clients

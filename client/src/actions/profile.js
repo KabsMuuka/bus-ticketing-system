@@ -14,7 +14,10 @@ import {
   SAVE_TICKET,
   GET_TICKETS,
   REMOVE_TICKET,
-
+  STORE_SEAT,
+  GET_SEAT_1,
+  GET_SEAT_2,
+  GET_SEAT_3,
   //MAKE PAYMENT
   REQUEST_TO_PAY,
   VERIFY_PAYMENTS,
@@ -90,7 +93,7 @@ export const getProfileById = (userId) => async (dispatch) => {
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/github/${username}`);
-    console.log(res.data);
+    // console.log(res.data);
     dispatch({
       type: GET_REPOS,
       payload: res.data,
@@ -172,7 +175,7 @@ export const addExperience = (FormData, history) => async (dispatch) => {
 export const okok =
   ({ start, end }) =>
   async (dispatch) => {
-    console.log("hii");
+    // console.log("hii");
   };
 
 //search buses
@@ -295,6 +298,116 @@ export const deletebuses = (id) => async (dispatch) => {
     });
 
     dispatch(setAlert("buses Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//storing selected seats
+export const storebus_firstBus = (seatId) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/f1/seatNumber/${seatId}`);
+
+    dispatch({
+      type: STORE_SEAT,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Seat number selected ", seatId));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//storing seats for second bus
+export const storebus_secondBus = (seatId) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/s2/seatNumber/${seatId}`);
+
+    dispatch({
+      type: STORE_SEAT,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Seat number selected ", seatId));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//storing seats for third bus
+export const storebus_thirdBus = (seatId) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/t3/seatNumber/${seatId}`);
+
+    dispatch({
+      type: STORE_SEAT,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Seat number selected ", seatId));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//GET SEATS
+
+//storing selected seats
+export const GetReservedSeats_firstBus = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/f1/storedSeats`);
+
+    console.log("firstbus ", res.data);
+    dispatch({
+      type: GET_SEAT_1,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//getseats for 2 second bus
+export const GetReservedSeats_secondbus = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/s2/storedSeats`);
+
+    dispatch({
+      type: GET_SEAT_2,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//get seats for third bus
+export const GetReservedSeats_thirdbus = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/t3/storedSeats`);
+
+    dispatch({
+      type: GET_SEAT_3,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,

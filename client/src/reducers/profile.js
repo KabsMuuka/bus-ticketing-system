@@ -10,6 +10,9 @@ import {
   GET_TICKETS,
   REMOVE_TICKET,
   ACCOUNT_DELETED,
+  GET_SEAT_1,
+  GET_SEAT_2,
+  GET_SEAT_3,
   //payments
   REQUEST_TO_PAY,
   VERIFY_PAYMENTS,
@@ -26,6 +29,11 @@ const initialState = {
   profiles: [],
   repos: [],
   //mine
+
+  getSeat_1: [],
+  getSeat_2: [],
+  getSeat_3: [],
+
   requenttopay: [],
   verifypayment: [],
   savedTickets: [],
@@ -104,6 +112,31 @@ function profileReducer(state = initialState, action) {
         savedTickets: payload,
         loading: false,
       };
+
+    //get seat
+    case GET_SEAT_1:
+      return {
+        ...state,
+        getSeat_1: payload,
+        loading: false,
+      };
+
+    //get seat 2
+    case GET_SEAT_2:
+      return {
+        ...state,
+        getSeat_2: payload,
+        loading: false,
+      };
+
+    //get seat 3
+    case GET_SEAT_3:
+      return {
+        ...state,
+        getSeat_3: payload,
+        loading: false,
+      };
+
     //Get tickets
     case GET_TICKETS:
       return {

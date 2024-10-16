@@ -39,7 +39,6 @@ const Profile = () => {
     setQrCode(generatedQrCodes);
   }, []);
 
-  console.log("QRCode", QRCode);
   //end
 
   // console.log("currentUser", currentUser);
@@ -153,17 +152,18 @@ const Profile = () => {
                                     </span>
                                     <h3>{data.busPosition}</h3>
                                     <span>
-                                      <h4>Route </h4>
-                                      <h5> {data.from + "," + data.to}</h5>
+                                      <h5>
+                                        Route : {data.from + "-" + data.to}
+                                      </h5>
                                     </span>
                                     <span>
-                                      <h1>Time </h1>
-                                      <h3>{data.time} Hours</h3>
+                                      <h3>Time : {data.time} Hours</h3>
                                     </span>
                                     <span>
-                                      <h3>Date</h3>
-
-                                      <h4>{data.date.split("T")[0]}</h4>
+                                      <h3>Price : K{data.price}</h3>
+                                    </span>
+                                    <span>
+                                      <h4>Date : {data.date.split("T")[0]}</h4>
                                     </span>
                                     <button
                                       className="btn btn-danger"

@@ -8,7 +8,7 @@ export default function Pay() {
         <div className="networkContainer">
           {/* Airtel */}
           {/* Airtel */}
-          <div className="Network-indiviual-component">
+          <div className="Airtel-Network-indiviual">
             <Link to={"/airtel"}>
               <img
                 className="networkSevice"
@@ -27,7 +27,7 @@ export default function Pay() {
           </div>
           {/* Mtn */}
           {/* Mtn */}
-          <div className="Network-indiviual-component">
+          <div className="Mtn-Network-indiviual">
             <Link to={"/mtn"}>
               <img className="networkSevice" src="/mtn-logo.svg" alt="mtn" />
             </Link>
@@ -42,7 +42,7 @@ export default function Pay() {
           </div>
           {/* Zamtel */}
           {/* Zamtel */}
-          <div className="Network-indiviual-component">
+          <div className="Zamtel-Network-indiviual">
             <Link to={"/zamtel"}>
               <img className="networkSevice" src="/zamtel.png" alt="zamtel" />
             </Link>

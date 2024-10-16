@@ -14,29 +14,25 @@ router.get("/", auth, async (req, res) => {
 
     const currentUserId = req.user.id;
 
+    console.log("currentUserId", currentUserId);
+
     //get recent reference_Id and userId
     const [payments, metadata] = await sequelize.query(
-      "SELECT reference_Id, userId FROM Payments ORDER BY createdAt DESC LIMIT 1"
+      "SELECT * FROM Payments"
     );
 
-    // console.log(payments);
-    payments.map(async (data) => {
-      const reference_Id = data.reference_Id;
-      // console.log("currentUserId", data.userId);
+    const currentUserData = payments.filter(
+      (paydetail) => paydetail.userId === currentUserId
+    );
 
-      const isMatched = currentUserId === data.userId;
-      // console.log(isMatched);
-
-      if (isMatched) {
-        const verifyTransaction = await verifymomo(reference_Id);
+    currentUserData.map(async (data, index) => {
+      // Check if this is the last entry in the array
+      if (index === currentUserData.length - 1) {
+        // console.log("userId", data.userId);
+        // console.log("reference_Id", data.reference_Id);
+        const verifyTransaction = await verifymomo(data.reference_Id);
         res.status(200).json(verifyTransaction);
         console.log(verifyTransaction);
-      } else {
-        res
-          .status(401)
-          .json(
-            "Something went wrong, check your internet connection, 'Paymentverfication.js'"
-          );
       }
     });
   } catch (error) {

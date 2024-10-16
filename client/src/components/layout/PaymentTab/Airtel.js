@@ -35,7 +35,7 @@ export default function Airtel() {
 
   return (
     <>
-      <div className="network-content">
+      <div className="network-container">
         <h5> Pay using Airtel </h5>
         <p>
           Easily pay using Airtel Mobile Money. Simply enter mechantID and

@@ -37,6 +37,7 @@ const Dashboard = () => {
 
   const currentUser = useSelector((state) => state.profile.profile) || [];
   const booked_tickets = useSelector((state) => state.profile.getTickets) || [];
+  localStorage.setItem("currentUserId", currentUser.id); //save user id
 
   // console.log("currentUser", currentUser);
   // console.log("booked_tickets", booked_tickets);

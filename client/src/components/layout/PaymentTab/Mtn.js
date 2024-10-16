@@ -52,14 +52,14 @@ export default function Mtn() {
       dispatch(requesttopay(PayInfo));
 
       setTimeout(async () => {
-        await dispatch(verifyPayment()).then((verifiedPayment) => {
-          console.log("verifiedPayment", verifiedPayment); //verifiedPayment); testing
-          if (verifiedPayment) {
-            navigate("/book/ticket");
-          } else {
-            alert("Payment verification failed");
-          }
-        });
+        // await dispatch(verifyPayment()).then((verifiedPayment) => {
+        //   console.log("verifiedPayment", verifiedPayment); //verifiedPayment); testing
+        // if (verifiedPayment) {
+        navigate("/book/ticket");
+        // } else {
+        //   alert("Payment verification failed");
+        // }
+        // });
       }, 5000);
     } catch (error) {
       alert("An error occurred during payment verification.");
@@ -68,40 +68,41 @@ export default function Mtn() {
 
   return (
     <>
-      <div className="network-content">
+      <section className="network-container">
         <h5> Pay using Mtn </h5>
         <p>
           Easily pay using Mtn Mobile Money. Simply enter mechantID and amount
           to pay below{" "}
         </p>
-      </div>
-      <form className="airtel-form">
-        <img src="/mtn-logo.svg" />
-        <span>Your Mobile number</span>
-        <p>0770309802</p>
-        <div className="service">
-          <label>Amount</label>
-          <input
-            type="text"
-            placeholder="Mtn phone number"
-            value={userContact}
-            onChange={(e) => {
-              handleMechantID(e);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Price"
-            value={amount}
-            onChange={(e) => {
-              handlePrice(e);
-            }}
-          />
-          <button onClick={moveToTicketPage}> Pay </button>
-          {loading && <Spinner />}{" "}
-          {/* render Spinner when only if loading is true */}
-        </div>
-      </form>
+
+        <form className="mtn-form">
+          <img src="/mtn-logo.svg" />
+          <span>Your Mobile number</span>
+          <p>0770309802</p>
+          <div className="service">
+            <label>Amount</label>
+            <input
+              type="text"
+              placeholder="Mtn phone number"
+              value={userContact}
+              onChange={(e) => {
+                handleMechantID(e);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Price"
+              value={amount}
+              onChange={(e) => {
+                handlePrice(e);
+              }}
+            />
+            <button onClick={moveToTicketPage}> Make Payment </button>
+            {loading && <Spinner />}{" "}
+            {/* render Spinner when only if loading is true */}
+          </div>
+        </form>
+      </section>
     </>
   );
 }

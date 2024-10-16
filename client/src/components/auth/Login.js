@@ -4,23 +4,35 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { FaFacebookF, FaGoogle } from "react-icons/fa";
 import { login } from "../../actions/auth";
+import Spinner from "../layout/Spinner";
 
 const Login = ({ login, isAuthenticated }) => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
   const { email, password } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+    }, [3000]);
+
     login(email, password);
   };
+
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
-
   return (
     <div className="container1">
       <div className="flex-container">
@@ -41,6 +53,9 @@ const Login = ({ login, isAuthenticated }) => {
                 <div className="left-divider">
                   <div className="col-md-6">
                     <form className="form" onSubmit={(e) => onSubmit(e)}>
+                      <div className="loadingStatus">
+                        {loading && <Spinner />}{" "}
+                      </div>
                       <div className="form-group2">
                         <label htmlFor="email">Email :</label>
                         <input

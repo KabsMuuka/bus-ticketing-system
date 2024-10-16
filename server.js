@@ -1,14 +1,31 @@
+"use strict";
 const express = require("express");
+const app = express();
 
 const sequelize = require("./config/db"); // Import your Sequelize instance
 const path = require("path");
+const { strict } = require("assert");
 
+//AWS deployment
+const buildPath = path.join(__dirname, "client/build");
+console.log(buildPath);
+console.log(__dirname);
+
+app.use(express.static(buildPath));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html")),
+    (err) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+    };
+});
+//AWS
 //new models needs to be imported inorder for it to show in db
 // const User = require("./models/Users");
 // const Bus = require("./models/Buses");
 // const City = require("./models/popularCities");
-
-const app = express();
 
 app.use(express.json({ extended: false }));
 
@@ -25,6 +42,16 @@ app.use("/api/bookedTicket/save", require("./routers/api/saveTickets")); //save 
 app.use("/api/search", require("./routers/api/searchBus")); //bus searching
 app.use("/api/getTickets", require("./routers/api/getTickets")); //get Tickets
 app.use("/api/deleteTicket", require("./routers/api/deleteTicket")); //deleteTicket
+
+//save seats
+app.use("/api/f1/seatNumber", require("./routers/api/storeFirstSeats")); //save seats 1
+app.use("/api/s2/seatNumber", require("./routers/api/storeSecondSeats")); //save seats 2
+app.use("/api/t3/seatNumber", require("./routers/api/storeThirdSeats")); //save seats 3
+
+//get seats
+app.use("/api/f1/storedSeats", require("./routers/api/getFirstSeats")); //save seats
+app.use("/api/s2/storedSeats", require("./routers/api/getSecondSeats")); //save seats
+app.use("/api/t3/storedSeats", require("./routers/api/getThirdSeats")); //save seats
 
 //admin
 app.use("/api/admin", require("./routers/api/admin/ticketCode")); //request to pay

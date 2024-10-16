@@ -5,7 +5,7 @@ const User = require("../models/Users"); // Ensure User model is correctly impor
 
 const BookedTickets = sequelize.define("BookedTickets", {
   passengerName: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
     allowNull: false,
   },
   from: {
@@ -13,6 +13,10 @@ const BookedTickets = sequelize.define("BookedTickets", {
     allowNull: false,
   },
   to: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  price: {
     type: DataTypes.STRING,
     allowNull: false,
   },

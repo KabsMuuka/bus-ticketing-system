@@ -21,9 +21,10 @@ const Landing = () => {
   const [formData, setFormData] = useState({
     start: "",
     end: "",
-    date: "",
   });
   const { start, end } = formData;
+
+  // const date = localStorage.getItem("date");
 
   useEffect(() => {
     dispatch(popularRoutes()); //for popular cities
@@ -53,7 +54,7 @@ const Landing = () => {
     e.preventDefault();
     searchBuses({ start, end }).then((busData) => {
       //checks if busData is an array or is [] empty
-      console.log(busData);
+      // console.log(busData);
       const validBusData = Array.isArray(busData) ? busData : [];
 
       exp1(
@@ -69,21 +70,26 @@ const Landing = () => {
                         <div className="box">
                           <div className="content">
                             <span>
-                              <h3>{bus.busPosition}</h3>{" "}
+                              <h3> 🎟 {bus.busPosition} 🎟</h3>
                             </span>
                             <span>
-                              <h3>Routes </h3>
-                              <h5>{bus.stops.join(", ")} </h5>
+                              <h5> Route :{bus.stops.join("-")} </h5>
                             </span>
                             <span>
-                              <h1>Time </h1>
-                              <h3>{bus.time} Hours</h3>
+                              <h3>TIme : {bus.time} Hours</h3>
+                            </span>
+                            <span>
+                              <h3>Price : K{bus.price}</h3>
                             </span>
                             <Link
-                              to="/book/menu1"
+                              to={`/book/${bus.busPosition}`} //dynamically lead to each bus position
                               className="bookBtn btn-light"
                               onClick={() => {
-                                handleSubmit(bus.busPosition, bus.time);
+                                handleSubmit(
+                                  bus.busPosition,
+                                  bus.time,
+                                  bus.price
+                                );
                               }}
                             >
                               Book Bus
@@ -102,9 +108,10 @@ const Landing = () => {
         </div>
       );
 
-      const handleSubmit = (busPosition, busTime) => {
+      const handleSubmit = (busPosition, busTime, price) => {
         localStorage.setItem("busPosition", busPosition); //pass the position dynamically based on of the user choose
         localStorage.setItem("time", busTime); //pass the time dynamically based on of the user choose
+        localStorage.setItem("price", price);
       };
     });
   };
@@ -136,6 +143,7 @@ const Landing = () => {
                 handleToCity(e);
               }}
             />
+
             <DateLimitor />
 
             <button type="submit" className="searchBtn" value="Search">
@@ -160,25 +168,27 @@ const Landing = () => {
               {Routes && Routes.length > 0 ? (
                 <Fragment>
                   {Routes.map((city) => (
+                    // console.log(city),
                     <li key={city.id}>
                       <div className="container1">
                         <div className="card">
                           <div className="box">
                             <div className="content">
                               <span>
-                                <h3>{city.busPosition}</h3>{" "}
+                                <h3>🎟 {city.busPosition} 🎟</h3>
+                              </span>
+                              <span>
+                                <h5>Route : {city.stops.join(" - ")} </h5>
+                              </span>
+                              <span>
+                                <h3>Time : {city.time} Hours</h3>
                               </span>
 
                               <span>
-                                <h4>Route </h4>
-                                <h5>{city.stops.join(" , ")} </h5>
-                              </span>
-                              <span>
-                                <h1>Time </h1>
-                                <h3>{city.time} Hours</h3>
+                                <h3>Price : K{city.price} </h3>
                               </span>
                               <Link
-                                to="/book/menu1"
+                                to={`/book/${city.busPosition}`} //dynamically lead to each bus position
                                 className="bookBtn btn-light"
                                 onClick={() => {
                                   handleSubmit(city.busPosition, city.time);

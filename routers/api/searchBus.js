@@ -15,6 +15,7 @@ router.get("/:start/:end", async (req, res) => {
       where: literal(
         `JSON_CONTAINS(stops, '["${stops_[0]}"]') AND JSON_CONTAINS(stops, '["${stops_[1]}"]')`
       ),
+      attributes: { exclude: ["_previousDataValues"] }, // Exclude the _previousDataValues property
     });
 
     //used Op.like is meant for string matching and won't work directly with JSON data.

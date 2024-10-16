@@ -13,17 +13,14 @@
 }
 
 body {
-  background: linear-gradient(
-    to right,
-    rgb(115 105 176 / 32%),
-    rgb(73 72 74 / 40%)
-  );
+  background: linear-gradient(to right, rgb(0 0 0 / 94%), rgb(0 0 0 / 40%));
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
   height: 100%;
   width: 100%;
+  filter: brightness(0.8); /* Reduce brightness of the image */
 }
 
 a {
@@ -59,7 +56,6 @@ h5 {
 /* Utilities */
 
 .container {
-  /* max-width: 1100px; */
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
@@ -80,6 +76,7 @@ h5 {
   margin-top: 15px;
   line-height: 1.2;
   margin-bottom: 1rem;
+  color: "yellow";
 }
 /* .large {
   font-size: 3rem;
@@ -97,8 +94,9 @@ h5 {
 }
 
 .NoBookedTickets {
-  color: wheat;
-  font-family: "Georgia", serif;
+  color: #000000;
+  font-weight: 700;
+  font-family: monospace;
 }
 
 .text-center {
@@ -249,11 +247,14 @@ h5 {
   color: rgb(0, 0, 0);
   font-family: "Georgia", serif;
   padding: 0.2rem 1rem !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .searchBtn:hover {
-  transition: 1s;
-  background: rgba(137, 140, 142, 0.411);
+  transition: 2s;
+  background: rgb(182, 179, 179);
+  /* color: white; */
 }
 
 .btn-primary,
@@ -422,15 +423,15 @@ button {
 
 .navbar {
   display: flex;
-  background-image: linear-gradient(to right top, #07ba89, #dcdcdd, #ffffff);
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  /* position: fixed; */
   z-index: 1;
   width: 100%;
-  height: 8vh;
+  height: 7vh;
   top: 0;
-  border-radius: 5px;
+  border-radius: 3px;
+  background-image: linear-gradient(to right top, #e1e1e1, #dcdcdd, #000000);
 }
 
 .navbar ul {
@@ -439,27 +440,26 @@ button {
 }
 
 .navbar a {
-  color: #484518;
+  color: #080808;
   font-weight: bolder;
   font-family: "Georgia", serif;
   padding: 0.45rem;
   border-radius: 4px;
   margin: 0 0.25rem;
+  font-family: monospace;
 }
 
 .navbar a:hover {
-  background: linear-gradient(to right top, #1a1b01, #e7edca, #eeff00);
-  color: rgb(163, 113, 6);
-  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
-  /* font-size: 130%; */
-
+  background-color: lightgrey;
   border-radius: 5px;
 }
 
 .navbar .welcome span {
   margin-right: 0.6rem;
 }
-
+.loadingStatus {
+  color: white;
+}
 /* Landing Page */
 
 .landing {
@@ -873,14 +873,18 @@ p.lead1 {
 .right-divider {
   background: rgb(26 7 59 / 70%);
   padding: 10px;
+  border-radius: 8px;
 }
 
 .left-divider {
   border-left: solid 1px rgb(3, 4, 5);
   width: 80%;
+  margin-top: 5px;
   background: white;
   padding-top: 10px;
-  /* padding-left: 20px; */
+  padding-left: 20px;
+
+  border-radius: 8px;
 }
 
 .lead-text {
@@ -1113,48 +1117,45 @@ input.form-submit {
 }
 
 /* Cards */
-
 .container1 {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem; /*Space between items */
+  gap: 1rem; /* Space between items */
   padding: 1rem;
+  justify-content: center;
 }
+
 .card {
   background: none;
-
-  /* border: ; */
-}
-.container1 .card {
-  position: relative;
-  /* min-width: 320px; */
-  height: 350px;
-  /* box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), inset 5px 5px 15px #756d6d1a,
-    5px 5px 15px rgb(207, 216, 40), -5px -5px 15px rgba(225, 225, 225, 0.1); */
-  width: 260px;
-  /* box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), 5px 5px 15px rgba(0, 0, 0, 0.3); */
-  /* box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2), inset 5px 5px 15px rgba(225, 225, 225, 0.1), 50px 50px 50px 10px #CC0000, 50px -50px 50px 10px #00CC00; */
+  width: 100%;
+  height: 110%;
   border-radius: 15px;
   margin: 30px;
+  overflow: hidden;
 }
 
 .container1 .card .box {
-  position: absolute;
+  position: relative;
   display: flex;
-  flex-direction: row;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  background: #dee2e6;
+  flex-direction: column; /* Align content in column for a ticket-like layout */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #f5f5f5; /* Soft background for a clean, professional look */
   border: 1px solid #1e1f23;
   border-radius: 15px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Softer shadow */
   transition: 0.5s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 20px; /* Padding for content spacing */
+  justify-content: space-between;
+  align-items: flex-start;
   overflow: hidden;
+}
+
+.container1 .card .box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); /* Softer hover effect */
 }
 
 .container1 .card .box:before {
@@ -1168,38 +1169,67 @@ input.form-submit {
   pointer-events: none;
 }
 
-.container1 .card .box:hover {
-  transform: translateY(-20px);
-  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.5);
-}
-
 .container1 .card .box .content {
-  padding: 20px;
-  text-align: center;
-  font-family: "Georgia", serif;
+  /* text-align: left; */
+  font-family: monospace;
+  padding: 0 15px;
 }
 
 .container1 .card .box .content h2 {
-  position: absolute;
-  top: -10px;
-  right: 30px;
-  color: rgba(225, 225, 225, 0.05);
-}
-
-.container1 .card .box .content h3 {
-  font-size: 1.8em;
+  font-size: 1.6rem;
   color: black;
-  z-index: 1;
-  transition: 0.5s;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-.container1 .card .box .content span {
-  font-size: 16px;
-  font-weight: 300;
-  color: rgba(225, 225, 225, 0.5);
-  z-index: 1;
-  transition: 0.5s;
+.container1 .card .box .content .section {
+  display: flex;
+  justify-content: space-between; /* Align label and value */
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc; /* Section divider */
+  padding-bottom: 8px;
 }
+
+.container1 .card .box .content .section:last-child {
+  border-bottom: none;
+}
+
+.container1 .card .box .content .section .label {
+  font-weight: bold;
+  color: #333; /* Darker color for the label */
+}
+
+.container1 .card .box .content .section .value {
+  color: #000;
+  font-size: 1.1rem;
+}
+
+/* Tear-off effect */
+.container1 .card .box:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 10px;
+  background: repeating-linear-gradient(
+    90deg,
+    #1e1f23 0px,
+    #1e1f23 5px,
+    transparent 5px,
+    transparent 10px
+  ); /* Dotted line for tear-off */
+}
+
+/* Footer style */
+.container1 .card .box .content .footer {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 20px;
+  text-align: center;
+}
+
 /* PROFILE CONTAINER SYTLING */
 .profile-container {
   display: flex;
@@ -1218,7 +1248,7 @@ input.form-submit {
   position: relative; /* Changed from absolute to relative */
   display: flex;
   flex-direction: row;
-  background: #ebeaea;
+  background: #9e9e9e;
   border: 1px solid #1e1f23;
   border-radius: 15px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
@@ -1226,8 +1256,8 @@ input.form-submit {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  height: 100%; /* Ensure it takes up the full height of the card */
-  width: 130%;
+  height: 80%;
+  width: 110%;
 }
 
 .profile-container .profile-card .profile-box:before {
@@ -1255,12 +1285,12 @@ input.form-submit {
   position: absolute;
   top: -10px;
   right: 30px;
-  font-size: 8em;
+  font-size: 7em;
   color: rgba(225, 225, 225, 0.05);
 }
 
 .profile-container .profile-card .profile-box .profile-content h3 {
-  font-size: 1.8em;
+  font-size: 1.5em;
   color: black;
   z-index: 1;
   transition: 0.5s;
@@ -1277,7 +1307,8 @@ input.form-submit {
 .profile-container .profile-card .profile-box .profile-content {
   text-align: center;
   /* z-index: 1; */
-  font-family: "Georgia", serif;
+  /* font-family: "Georgia", serif; */
+  font-family: monospace;
 }
 
 /* END */

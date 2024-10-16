@@ -20,6 +20,8 @@ import PrivateRoute from "./PrivateRoute";
 // import BookBus from "../layout/BookBus";
 import PaymentTab from "../layout/PaymentTab/PaymentTab";
 import SeatSelection from "../layout/SeatSelection/SeatSelection";
+import SeatSelection2 from "../layout/SeatSelection/SeatSelectionSecondBus";
+import SeatSelection3 from "../layout/SeatSelection/SeatSelectionThirdBus";
 import TicketPage from "../layout/TicketPage/TicketPage";
 //payment
 import Pay from "../layout/PaymentTab/Pay";
@@ -54,12 +56,20 @@ const MyRoutes = () => {
           element={<PrivateRoute element={<Profile />} />}
         />
         <Route
-          path="/book/menu1"
+          path="/book/First Bus"
           element={<PrivateRoute element={<SeatSelection />} />}
+        />
+        <Route
+          path="/book/Second Bus"
+          element={<PrivateRoute element={<SeatSelection2 />} />}
+        />
+        <Route
+          path="/book/Third Bus"
+          element={<PrivateRoute element={<SeatSelection3 />} />}
         />
         {/* testing */}
         <Route path="/pay" element={<Pay />} />
-        <Route path="/book/menu2" element={<Pay />} />s
+        <Route path="/book/payments" element={<Pay />} />
         <Route path="/airtel" element={<Airtel />} />
         <Route path="/zamtel" element={<Zamtel />} />
         <Route path="/mtn" element={<Mtn />} />

@@ -14,35 +14,43 @@ const { sequelize } = require("../../models/Users");
 router.post("/", auth, async (req, res) => {
   const {
     passengerName,
+    currentUserId,
     from,
     to,
+    price,
     reservedSeats,
     time,
     date,
     busPosition,
     uniqueCode,
   } = req.body;
+
+  const currentUserID = Number(currentUserId);
+
   try {
     const [user, metadata] = await sequelize.query("SELECT * FROM Users");
 
-    if (!user) {
+    const currentUser = user.filter((user) => currentUserID === user.id);
+
+    if (!currentUser) {
       return res.status(404).json({ msg: "User not found" });
     }
-    user.map(async (data) => {
-      const userId = data.id; //get an id
-      //then create a new ticket entry
+
+    currentUser.map(async (user) => {
       await BookedTickets.create({
         passengerName,
         from,
         to,
+        price,
         reservedSeats,
         time,
         date,
         busPosition,
         uniqueCode,
-        userId, //added as a foreign key Per Unique User
+        userId: user.id,
       });
     });
+
     res.status(200).json("Ticket Saved Successfully");
   } catch (err) {
     console.error("from SaveTicket", err.message);

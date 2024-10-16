@@ -1,19 +1,60 @@
 /* PAYMENT LOGO */
+
+.network-container {
+  margin-top: 50px;
+  background: rgba(255, 255, 255, 0.918);
+  padding: 10px;
+}
+
+.mtn-container p {
+  color: rgb(3, 1, 1);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: small;
+}
+
 .networkContainer {
   display: flex;
+  margin-top: 90px;
   flex-direction: column;
-  margin-top: 30px;
+  justify-content: center;
   align-items: center;
 }
-.Network-indiviual-component {
+
+.Airtel-Network-indiviual {
   display: flex;
-  background: rgb(228, 228, 228);
+  background: rgb(199 44 44);
   margin-top: 10px;
   border: solid thin white;
   border-radius: 4px;
-  width: 50%;
-  height: 60px;
+  width: 60%;
+  height: 70px;
+  color: white;
+  font-weight: 600;
 }
+
+.Mtn-Network-indiviual {
+  display: flex;
+  background: rgb(233, 214, 12);
+  margin-top: 10px;
+  border: solid thin white;
+  border-radius: 4px;
+  width: 60%;
+  height: 70px;
+  color: black;
+  font-weight: 600;
+}
+.Zamtel-Network-indiviual {
+  display: flex;
+  background: rgb(0, 156, 60);
+  margin-top: 10px;
+  border: solid thin white;
+  border-radius: 4px;
+  width: 60%;
+  height: 70px;
+  color: white;
+  font-weight: 600;
+}
+
 .networkSevice {
   margin-top: 10px;
   margin-right: 12px;
@@ -38,19 +79,18 @@
 
 /* Aritel service  */
 
-.network-content {
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.918);
+.mtn-form {
+  background: #ffc107;
   padding: 10px;
+  border-radius: 8px;
 }
-.network-content p {
-  color: rgb(3, 1, 1);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: small;
+.mtn-form img {
+  width: 70px;
+  border-radius: 5px;
 }
-
+/* airtel  */
 .airtel-form {
-  background: #b6a2cfc4;
+  background: rgb(231 87 79);
   padding: 10px;
   border-radius: 8px;
 }
@@ -58,6 +98,18 @@
   width: 70px;
   border-radius: 5px;
 }
+/* zamtel  */
+
+.zamtel-form {
+  background: rgb(0, 156, 60);
+  padding: 10px;
+  border-radius: 8px;
+}
+.zamtel-form img {
+  width: 70px;
+  border-radius: 5px;
+}
+
 .airtel-form span {
   font-family: "Courier New", Courier, monospace;
   font-size: small;
@@ -77,6 +129,14 @@
   width: 30% !important;
   font-size: smaller !important;
 }
+.mtn-form button {
+  width: 15%;
+  border: none;
+  border-radius: 8px;
+  background: #ceb9b9;
+  transition: 1s;
+}
+
 .airtel-form button {
   width: 15%;
   border: none;
@@ -84,8 +144,27 @@
   background: #ceb9b9;
   transition: 1s;
 }
+
+.zateml-form button {
+  width: 15%;
+  border: none;
+  border-radius: 8px;
+  background: #ceb9b9;
+  transition: 1s;
+}
+
 .airtel-form button:hover {
-  background: rgba(6, 124, 63, 0.659);
+  background: rgba(184, 65, 38, 0.622);
+  transition: 1s;
+}
+
+.mtn-form button:hover {
+  background: rgb(210, 153, 29);
+  transition: 1s;
+}
+
+.zamtel-form button:hover {
+  background: rgba(28, 96, 20, 0.444);
   transition: 1s;
 }
 .service {
