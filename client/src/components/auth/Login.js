@@ -25,7 +25,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     setTimeout(() => {
       setLoading(false);
-    }, [3000]);
+    }, 3000);
 
     login(email, password);
   };
@@ -33,83 +33,84 @@ const Login = ({ login, isAuthenticated }) => {
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
+
   return (
-    <div className="container1">
-      <div className="flex-container">
-        <div className="row full">
-          <div className="col-md-12">
-            <div className="form-container">
-              <div className="row sgnUp ">
-                <div className="col-md-6 right-divider pdding">
-                  <h3 className="lead-text mn-txt">Signin Here</h3>
+    <div className="flex items-center justify-center mt-2 mb-2 ">
+      <div className="rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h3 className="text-2xl font-bold text-center mb-4">Signin Here</h3>
 
-                  <div className="icon-soc-fb">
-                    <FaFacebookF />
-                  </div>
-                  <div className="icon-soc-gg">
-                    <FaGoogle />
-                  </div>
-                </div>
-                <div className="left-divider">
-                  <div className="col-md-6">
-                    <form className="form" onSubmit={(e) => onSubmit(e)}>
-                      <div className="loadingStatus">
-                        {loading && <Spinner />}{" "}
-                      </div>
-                      <div className="form-group2">
-                        <label htmlFor="email">Email :</label>
-                        <input
-                          required
-                          name="email"
-                          placeholder="Ex:- example@gmail.com"
-                          value={email}
-                          type="email"
-                          className="form-control sgnUp"
-                          onChange={(e) => onChange(e)}
-                        />
-                      </div>
-
-                      <div className="form-group2">
-                        <label htmlFor="password">Password :</label>
-                        <input
-                          required
-                          id="password"
-                          name="password"
-                          value={password}
-                          placeholder="password"
-                          type="password"
-                          className="form-control sgnUp"
-                          onChange={(e) => onChange(e)}
-                        />
-                      </div>
-
-                      <div className="form-group2">
-                        <input
-                          required
-                          type="submit"
-                          value="Login"
-                          className="btn-primary btnn form-submit sub-btn sgnUp"
-                        />
-                      </div>
-                      <div>
-                        <small className="form-text text-muted link-text">
-                          Don't have account?
-                        </small>
-                        <span className="signuptext">
-                          <Link to="/register">Sign-Up</Link>
-                        </span>
-
-                        <span>
-                          <Link to={"/admin_login"}>Login as Admin </Link>
-                        </span>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="flex justify-center space-x-4 mb-4">
+          <div className="flex items-center justify-center bg-blue-500 text-white rounded-full p-2 cursor-pointer">
+            <FaFacebookF />
+          </div>
+          <div className="flex items-center justify-center bg-red-500 text-white rounded-full p-2 cursor-pointer">
+            <FaGoogle />
           </div>
         </div>
+
+        <form
+          className="flex items-center flex-col justify-center "
+          onSubmit={(e) => onSubmit(e)}
+        >
+          <div className="mb-4">{loading && <Spinner />}</div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-sm font-medium mb-1">
+              Email
+            </label>
+            <input
+              required
+              className="input text-black bg-slate-200 input-bordered w-full max-w-xs"
+              name="email"
+              placeholder="example@gmail.com"
+              value={email}
+              type="email"
+              onChange={(e) => onChange(e)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium mb-1"
+            >
+              Password
+            </label>
+            <input
+              required
+              id="password"
+              name="password"
+              value={password}
+              placeholder="Password"
+              type="password"
+              className="input bg-slate-200 input-bordered w-full max-w-xs"
+              onChange={(e) => onChange(e)}
+            />
+
+            <div className="mb-4">
+              <input
+                required
+                type="submit"
+                value="Login"
+                className="mt-2 bg-blue-500 rounded py-2 w-full cursor-pointer hover:bg-blue-600 transition duration-200"
+              />
+            </div>
+          </div>
+
+          <div className="text-center">
+            <small className="text-gray-600">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-500 hover:underline">
+                Sign-Up
+              </Link>
+            </small>
+            <br />
+            <small>
+              <Link to="/admin_login" className="text-blue-500 hover:underline">
+                Login as Admin
+              </Link>
+            </small>
+          </div>
+        </form>
       </div>
     </div>
   );

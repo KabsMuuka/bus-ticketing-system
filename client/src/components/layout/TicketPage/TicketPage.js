@@ -1,132 +1,98 @@
 import { React, useEffect, useState } from "react";
-import "./TicketPage.css";
-import { addTicket } from "../../../actions/profile";
-//use the useDispatch hook from react-redux to dispatch actions.
 import { useDispatch } from "react-redux";
+import { addTicket } from "../../../actions/profile";
+import styles from "./TicketPage.module.css"; // Import your CSS module
 
 export default function TicketPage() {
-  //  Update your component to use useDispatch for dispatching
-  // actions and ensure proper use of the useEffect hook.
-  const dispatch = useDispatch(); //now simply wrap addTicket using dispatch
-
-  console.log(localStorage);
-
+  const dispatch = useDispatch();
   const [qrSrc, setQrSrc] = useState("");
 
   useEffect(() => {
-    let uniqueCode = localStorage.getItem("uniqueCode");
+    const uniqueCode = localStorage.getItem("uniqueCode");
     if (uniqueCode) {
       setQrSrc(
-        "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" +
-          uniqueCode
+        `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${uniqueCode}`
       );
     }
   }, []);
 
   useEffect(() => {
-    const saveDATEa = () => {
-      let from = localStorage.getItem("start");
-      let to = localStorage.getItem("destination");
-      let currentUserId = localStorage.getItem("currentUserId");
-      let passengerName =
-        JSON.parse(localStorage.getItem("passengerName")) || [];
+    const saveData = () => {
+      const formData = {
+        passengerName: JSON.parse(localStorage.getItem("passengerName")) || [],
+        currentUserId: localStorage.getItem("currentUserId"),
+        from: localStorage.getItem("start"),
+        to: localStorage.getItem("destination"),
+        price: localStorage.getItem("price"),
+        reservedSeats: localStorage.getItem("reservedSeats"),
+        time: localStorage.getItem("time"),
+        date: localStorage.getItem("date"),
+        busPosition: localStorage.getItem("busPosition"),
+        uniqueCode: localStorage.getItem("uniqueCode"),
+      };
 
-      let reservedSeats = localStorage.getItem("reservedSeats");
-      // let selectedBusId = localStorage.getItem("selectedBusId");
-      let date = localStorage.getItem("date");
-      let time = localStorage.getItem("time");
-      let busPosition = localStorage.getItem("busPosition");
-      let uniqueCode = localStorage.getItem("uniqueCode");
-      let price = localStorage.getItem("price");
-
-      console.log(price);
-      if (
-        !from ||
-        !passengerName ||
-        !to ||
-        !reservedSeats ||
-        !time ||
-        !date ||
-        !busPosition ||
-        !uniqueCode ||
-        !price
-      ) {
+      if (Object.values(formData).some((value) => !value)) {
         console.error(
           "One or more required fields are missing in localStorage"
         );
+        return;
       }
 
-      const formDATEa = {
-        passengerName,
-        currentUserId,
-        from,
-        to,
-        price,
-        reservedSeats,
-        time,
-        date,
-        busPosition,
-        uniqueCode,
-      };
-
-      dispatch(addTicket(formDATEa));
+      dispatch(addTicket(formData));
     };
-    saveDATEa();
+    saveData();
   }, [dispatch]);
-  // console.log("ticket", localStorage); //testing
-  const getLocationDATEa = () => {
-    let busPosition = localStorage.getItem("busPosition");
-    let from = localStorage.getItem("start");
-    let to = localStorage.getItem("destination");
+
+  const getLocationData = () => {
+    const busPosition = localStorage.getItem("busPosition");
+    const from = localStorage.getItem("start");
+    const to = localStorage.getItem("destination");
 
     return (
-      <div>
-        <span>
-          <h2> {busPosition}</h2>
-        </span>
-
-        <span>
-          <strong>From : </strong> {from}
-        </span>
-        <br />
-        <span>
-          <strong>Destination : </strong> {to}
-        </span>
+      <div className={styles.locationData}>
+        <h2>{busPosition}</h2>
+        <p>
+          <strong>From:</strong> {from}
+        </p>
+        <p>
+          <strong>Destination:</strong> {to}
+        </p>
       </div>
     );
   };
-  const getPassengerName = () => {
-    let passengerName = localStorage.getItem("passengerName");
-    if (!passengerName) {
-      return <p>No passenger names available</p>;
-    }
-    let names = JSON.parse(passengerName);
-    return names.map((name, idx) => {
-      return (
-        <span key={idx} className="names">
+
+  const getPassengerNames = () => {
+    const passengerName =
+      JSON.parse(localStorage.getItem("passengerName")) || [];
+    return passengerName.length > 0 ? (
+      passengerName.map((name, idx) => (
+        <span key={idx} className={styles.name}>
           {name}
         </span>
-      );
-    });
+      ))
+    ) : (
+      <p>No passenger names available</p>
+    );
   };
-  const getSeatNumbers = () => {
-    let reservedSeats = localStorage.getItem("reservedSeats");
-    return <span className="seatNo">{reservedSeats}</span>;
-  };
-  const getPrice = () => {
-    let price = localStorage.getItem("price");
-    return <span className="price">{price}</span>;
-  };
-  const getDATEeValue = () => {
-    let DATE = localStorage.getItem("date");
-    let time = localStorage.getItem("time");
+
+  const getSeatNumbers = () => (
+    <span className={styles.seatNo}>
+      {localStorage.getItem("reservedSeats")}
+    </span>
+  );
+
+  const getPrice = () => (
+    <span className={styles.price}>{localStorage.getItem("price")}</span>
+  );
+
+  const getDateTime = () => {
+    const date = localStorage.getItem("date");
+    const time = localStorage.getItem("time");
     return (
       <span>
-        <em>Date : </em>
-        {DATE}
+        <em>Date:</em> {date}
         <br />
-        <em> StartOff Time :</em>
-        {time} Hours
+        <em>Start Time:</em> {time} Hours
       </span>
     );
   };
@@ -134,53 +100,40 @@ export default function TicketPage() {
   const printTicket = () => {
     window.print();
   };
+
   return (
-    <div className="container">
-      <div className="tpMain">
-        <article className="ticket">
-          <header className="ticket__wrapper">
-            <div className="ticket__header">🎟 PowerTools 🎟</div>
-          </header>
-          <div className="ticket__divider">
-            <div className="ticket__notch"></div>
-            <div className="ticket__notch ticket__notch--right"></div>
-          </div>
-          <div className="ticket__body">
-            <section className="ticket__section">
-              <h3>QRcode</h3>
-              <img id="qrImage" src={qrSrc} alt="QR Code" />
-              {/* {getQRCode()} */}
-            </section>
-
-            <section className="ticket__section">
-              {getLocationDATEa()}
-              <h3>Seat Number : {getSeatNumbers()}</h3>
-              <p>
-                <span>{getDATEeValue()}</span>
-              </p>
-            </section>
-
-            <section className="ticket__section">
-              <h3>Name : {getPassengerName()}</h3>
-            </section>
-            <section className="ticket__section">
-              <h3>Price : K{getPrice()}</h3>
-            </section>
-            <section className="ticket__section">
-              <h3>Payment Method</h3>
-              <p>Mobile Money</p>
-              <br />
-              Have a nice journey.
-            </section>
-          </div>
-          <footer className="ticket__footer">
-            <button className="btn btn-primary" onClick={printTicket}>
-              {" "}
-              Print{" "}
-            </button>
-          </footer>
-        </article>
-      </div>
+    <div className={styles.container}>
+      <article className={styles.ticket}>
+        <header className={styles.ticketHeader}>🎟 PowerTools 🎟</header>
+        <div className={styles.ticketBody}>
+          <section className={styles.ticketSection}>
+            <h3>QR Code</h3>
+            <img src={qrSrc} alt="QR Code" className={styles.qrCode} />
+          </section>
+          <section className={styles.ticketSection}>
+            {getLocationData()}
+            <h3>Seat Number: {getSeatNumbers()}</h3>
+            <p>{getDateTime()}</p>
+          </section>
+          <section className={styles.ticketSection}>
+            <h3>Name: {getPassengerNames()}</h3>
+          </section>
+          <section className={styles.ticketSection}>
+            <h3>Price: K{getPrice()}</h3>
+          </section>
+          <section className={styles.ticketSection}>
+            <h3>Payment Method</h3>
+            <p>Mobile Money</p>
+            <br />
+            <p>Have a nice journey!</p>
+          </section>
+        </div>
+        <footer className={styles.ticketFooter}>
+          <button className={styles.printButton} onClick={printTicket}>
+            Print
+          </button>
+        </footer>
+      </article>
     </div>
   );
 }

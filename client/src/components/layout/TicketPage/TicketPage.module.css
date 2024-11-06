@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  min-height: 100vh; /* Full height for centering */
+}
+
+.ticket {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Adjust width for ticket look */
+  overflow: hidden; /* Prevent overflow of content */
+}
+
+.ticketHeader {
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.5rem;
+}
+
+.ticketBody {
+  padding: 15px;
+}
+
+.ticketSection {
+  margin-bottom: 15px; /* Space between sections */
+}
+
+.qrCode {
+  width: 100px; /* Adjust QR code size */
+  height: auto;
+}
+
+.locationData {
+  margin-bottom: 10px;
+}
+
+.name {
+  display: inline-block;
+  margin-right: 10px; /* Space between names */
+}
+
+.seatNo {
+  font-weight: bold;
+}
+
+.price {
+  color: green; /* Price styling */
+}
+
+.ticketFooter {
+  text-align: center;
+  padding: 10px;
+  background-color: #f8f8f8;
+}
+
+.printButton {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.printButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

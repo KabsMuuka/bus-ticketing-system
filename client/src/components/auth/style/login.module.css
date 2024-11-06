@@ -1,0 +1,87 @@
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Center vertically */
+  background-color: #f0f0f0; /* Light background */
+}
+
+.flexcontainer {
+  width: 100%;
+  max-width: 600px; /* Limit max width of form */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.formcontainer {
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.rightdivider {
+  flex: 1; /* Take up space */
+  padding-right: 15px; /* Right padding */
+}
+
+.leftdivider {
+  flex: 1; /* Take up space */
+}
+
+.leadtext {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.iconsocfb,
+.iconsocgg {
+  font-size: 24px; /* Size of social icons */
+  margin-right: 10px; /* Spacing */
+  cursor: pointer;
+}
+
+.formgroup2 {
+  margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.formcontrol {
+  width: 100%; /* Full width */
+  padding: 10px; /* Padding */
+  border: 1px solid #ccc; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.btnprimary {
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background 0.3s; /* Transition effect */
+}
+
+.btnprimary:hover {
+  background-color: #0056b3; /* Darker on hover */
+}
+
+.formtext {
+  margin-top: 10px; /* Margin for form text */
+}
+
+.signuptext {
+  margin-left: 5px; /* Space between text */
+}
+
+.linktext {
+  color: #007bff; /* Link color */
+}
+
+.linktext:hover {
+  text-decoration: underline; /* Underline on hover */
+}

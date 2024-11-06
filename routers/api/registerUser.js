@@ -29,7 +29,7 @@ router.post(
 
     const { name, email, phoneNumber, gender, password } = req.body;
 
-    console.log("from body", req.body);
+    // console.log("from body", req.body);
 
     try {
       let user = await User.findOne({ where: { email } }); // Use Sequelize's findOne method

@@ -1,59 +1,54 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
-  const authLinks = (
-    <ul className="NavBar-Links">
-      {" "}
-      <li>
-        <Link to="/">Search Buses </Link>
-      </li>
-      <li>
-        <Link to="/profile">
-          <i className="fas fa-user">
-            {"   "}
-            Profile
-          </i>
-        </Link>
-      </li>
-      <li>
-        <Link to="/pay">Pay</Link>{" "}
-      </li>
-      <li>
-        <a onClick={logout} href="#!">
-          <i className="fas fa-sign-out-alt">Logout</i>
-        </a>
-      </li>
-    </ul>
-  );
-
-  const guestLinks = (
-    <ul>
-      <li>
-        <Link to="/about">About</Link>{" "}
-      </li>
-
-      <li>
-        <Link to="/register">Register</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-    </ul>
-  );
-
   return (
-    <nav className="navbar bg-dark">
-      <h4>
-        <Link to="/"> Home</Link>
-      </h4>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
-    </nav>
+    <div className="navbar bg-slate-300 rounded-lg">
+      <div className="flex-1">
+        <Link to={"/"} className="btn btn-ghost text-xl">
+          Home
+        </Link>
+      </div>
+      <div className="flex-none">
+        <ul className="NavBar-Links flex space-x-4">
+          <li>
+            <Link to="/">Search Buses</Link>
+          </li>
+
+          {isAuthenticated && (
+            <li>
+              <Link to="/profile" className="flex items-center">
+                <i className="fas fa-user mr-2"></i>
+                Profile
+              </Link>
+            </li>
+          )}
+
+          {/* Conditionally render the Logout link */}
+          {!isAuthenticated && (
+            <li>
+              <Link to={"/login"}>
+                <i className="fas fa-sign-out-alt mr-2"></i>
+                login
+              </Link>
+            </li>
+          )}
+
+          {/* Conditionally render the Logout link */}
+          {isAuthenticated && (
+            <li>
+              <a onClick={logout} href="#!">
+                <i className="fas fa-sign-out-alt mr-2"></i>
+                Logout
+              </a>
+            </li>
+          )}
+        </ul>
+      </div>
+    </div>
   );
 };
 

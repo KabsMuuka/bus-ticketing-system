@@ -28,6 +28,7 @@ function DateLimitor() {
   };
   return (
     <input
+      className="input text-center bg-slate-200 input-bordered max-w-xs mr-3"
       type="date"
       name="date"
       value={date}

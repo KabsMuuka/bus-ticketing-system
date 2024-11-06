@@ -1,16 +1,15 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
-//types
+// Types
 import {
   getCurrentProfile,
   removeTicket,
   getTickets,
   deleteAccount,
-  ticket_codes,
-} from "../../actions/profile"; //path
+} from "../../actions/profile"; // Path
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -23,40 +22,26 @@ const Profile = () => {
     dispatch(getTickets());
   }, [dispatch]);
 
-  //assign state.profile.getCurrentProfile to getCurrentProfile
-  const currentUser = useSelector((state) => state.profile.profile) || []; //.profile.profile, file name, then profile defined in profile.js
+  const currentUser = useSelector((state) => state.profile.profile) || [];
   const savedTickets = useSelector((state) => state.profile.getTickets) || [];
 
-  //Generating QrCode
+  // Generating QR Code
   const [QRCode, setQrCode] = useState([]);
 
   useEffect(() => {
-    // Generate QR code URLs
     const generatedQrCodes = savedTickets.map((ticket) => ({
       qrCodeUrl: `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${ticket.uniqueCode}`,
     }));
 
     setQrCode(generatedQrCodes);
-  }, []);
+  }, [savedTickets]);
 
-  //end
-
-  // console.log("currentUser", currentUser);
-  // console.log("savedTickets", savedTickets);
-
-  //The some method is used to determine if there is at least one ticket where data.userId matches currentUser.id
-  //returns a boolean if exits or not
-  //used in a condition ? : ..
-
-  //expected result is "true"
   const hasTicketForUser = savedTickets.some(
     (data) => data.userId === currentUser.id
   );
 
   // DELETE ACCOUNT
-  //passing current user_id
   const handle_deleteAccount = (id) => {
-    // Display a confirmation dialog
     const isConfirmed = window.confirm(
       "Are you sure you want to delete your account?"
     );
@@ -65,127 +50,98 @@ const Profile = () => {
     }
   };
 
-  //TICKET DELETION
+  // TICKET DELETION
   const handle_deleteTicket = (id) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete your booked Ticket?"
     );
     if (isConfirmed) {
-      dispatch(removeTicket(id)); //passing ticket id
+      dispatch(removeTicket(id)); // Passing ticket id
     }
   };
 
   let filteredTickets_uniqueCodes;
   return (
     <Fragment>
-      <div className="profile-grid my-1">
-        <div className="profile-top bg-primary p-2">
-          <h3 className="x-large fas fa-user ">
+      <div className="max-w-4xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
+        <div className="bg-blue-500 p-4 rounded-t-lg">
+          <h3 className="text-2xl font-bold text-white">
             {currentUser && currentUser.name}
           </h3>
-          <h4 className="large">
+          <h4 className="text-lg text-gray-200">
             <i className="fas fa-globe fa-2x"></i>{" "}
             {currentUser && currentUser.email}
           </h4>
-          <div className="icons my-1">
-            <h3>
-              <i className="" /> {currentUser && currentUser.gender}
+          <div className="flex items-center justify-between mt-2">
+            <h3 className="text-gray-200">
+              {currentUser && currentUser.gender}
             </h3>
-
-            <div className="delete_account">
-              {/* arrow function Ensures handle_deleteAccount() is only called onClick */}
-              <button
-                className="DELETE_ACCOUNT_BUTTON"
-                onClick={() => handle_deleteAccount(currentUser.id)}
-              >
-                Delete-Account
-              </button>
-            </div>
+            <button
+              className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+              onClick={() => handle_deleteAccount(currentUser.id)}
+            >
+              Delete Account
+            </button>
           </div>
         </div>
-        <div className="profile-exp bg-white p-2">
-          <h2 className="text-danger">Booked Buses</h2>
-          {/*
-          Filter Tickets:
-          If hasTicketsForUser is true, filter savedTickets to include 
-          only those where data.userId matches currentUser.id. Then, map through the filtered tickets to display them.
-          */}
-          {/* ADD A UNIQUE CODE FOR A TICKET */}
-          <ul className="UL">
-            {hasTicketForUser && hasTicketForUser === true ? (
-              <Fragment>
-                {savedTickets &&
-                  savedTickets
-                    .filter((ticket) => ticket.userId === currentUser.id)
-                    .map(
-                      (data) => (
-                        (filteredTickets_uniqueCodes = data.uniqueCode),
-                        (
-                          <li key={data.id}>
-                            <div className="profile-container">
-                              <div className="profile-card">
-                                <div className="profile-box">
-                                  <div className="profile-content">
-                                    {/* Find and display the QR code for the current ticket */}
-                                    <span>
-                                      {/* image */}
-                                      {QRCode && QRCode.length > 0 ? (
-                                        // Use filter instead of map for conditional rendering
-                                        QRCode.filter((ticket) => {
-                                          const parts =
-                                            ticket.qrCodeUrl.split("&data=");
-                                          const data = parts[1];
-                                          console.log("data part", data);
-                                          return (
-                                            data === filteredTickets_uniqueCodes
-                                          ); // Extract and compare UID
-                                        }).map((ticket) => (
-                                          <img
-                                            key={ticket.qrCodeUrl}
-                                            src={ticket.qrCodeUrl}
-                                            alt="QR Code"
-                                          /> // Add key prop
-                                        ))
-                                      ) : (
-                                        <p>No QR codes available</p> // Placeholder for no QR codes
-                                      )}
-                                    </span>
-                                    <h3>{data.busPosition}</h3>
-                                    <span>
-                                      <h5>
-                                        Route : {data.from + "-" + data.to}
-                                      </h5>
-                                    </span>
-                                    <span>
-                                      <h3>Time : {data.time} Hours</h3>
-                                    </span>
-                                    <span>
-                                      <h3>Price : K{data.price}</h3>
-                                    </span>
-                                    <span>
-                                      <h4>Date : {data.date.split("T")[0]}</h4>
-                                    </span>
-                                    <button
-                                      className="btn btn-danger"
-                                      onClick={() => {
-                                        handle_deleteTicket(data.id);
-                                      }}
-                                    >
-                                      Delete Bus
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      )
-                    )}
-              </Fragment>
+
+        <div className="bg-gray-50 p-1 rounded-b-lg">
+          <h2 className="text-xl font-semibold text-red-500 mb-4">
+            Booked Buses
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            {hasTicketForUser ? (
+              savedTickets
+                .filter((ticket) => ticket.userId === currentUser.id)
+                .map((data) => {
+                  filteredTickets_uniqueCodes = data.uniqueCode;
+                  return (
+                    <div
+                      key={data.id}
+                      className="bg-white p-4 rounded-lg shadow flex flex-col items-start w-64"
+                    >
+                      <span>
+                        {QRCode && QRCode.length > 0 ? (
+                          QRCode.filter((ticket) => {
+                            const parts = ticket.qrCodeUrl.split("&data=");
+                            const code = parts[1];
+                            return code === filteredTickets_uniqueCodes;
+                          }).map((ticket) => (
+                            <img
+                              key={ticket.qrCodeUrl}
+                              src={ticket.qrCodeUrl}
+                              alt="QR Code"
+                              className="w-24 h-24 mb-2"
+                            />
+                          ))
+                        ) : (
+                          <p>No QR codes available</p>
+                        )}
+                      </span>
+                      <h3 className="text-lg font-semibold">
+                        {data.busPosition}
+                      </h3>
+                      <h5 className="text-gray-600">
+                        Route: {data.from + "-" + data.to}
+                      </h5>
+                      <h3 className="text-gray-600">Time: {data.time} Hours</h3>
+                      <h3 className="text-gray-600">Price: K{data.price}</h3>
+                      <h4 className="text-gray-600">
+                        Date: {data.date.split("T")[0]}
+                      </h4>
+                      <button
+                        className="mt-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                        onClick={() => handle_deleteTicket(data.id)}
+                      >
+                        Delete Bus
+                      </button>
+                    </div>
+                  );
+                })
             ) : (
-              <h4 className="noTicketsFound">No Tickets Found.</h4>
+              <h4 className="text-center text-gray-500">No Tickets Found.</h4>
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </Fragment>
@@ -194,16 +150,13 @@ const Profile = () => {
 
 Profile.propTypes = {
   currentUser: PropTypes.array.isRequired,
-  savedTickets: PropTypes.func.isRequired, //pending
+  savedTickets: PropTypes.func.isRequired,
   removeTicket: PropTypes.func.isRequired,
-  // auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  // auth: state.auth,
   currentUser: state.profile.profile,
   savedTickets: state.profile.getTickets,
-  removeTicket: state.profile.remove_ticket,
 });
 
 export default connect(mapStateToProps, {

@@ -1,0 +1,93 @@
+/* style/register.module.css */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height of the viewport */
+  background-color: #f8f9fa; /* Light background color for contrast */
+  padding: 20px;
+}
+
+.flexContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.rowFull {
+  width: 100%;
+  max-width: 600px; /* Max width for the form */
+  background: white; /* White background for the form */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.formContainer {
+  padding: 20px;
+}
+
+.leadText {
+  font-size: 24px;
+  text-align: center; /* Center text */
+  margin-bottom: 20px; /* Spacing below the heading */
+}
+
+.iconSocFb,
+.iconSocGg {
+  font-size: 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.leftDivider {
+  padding: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column; /* Column layout for form items */
+}
+
+.formGroup {
+  margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.formControl {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da; /* Light border */
+  border-radius: 4px; /* Rounded edges */
+}
+
+.btnPrimary {
+  background-color: #007bff; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px; /* Rounded button */
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+.formText {
+  text-align: center; /* Center text */
+  margin-top: 10px;
+}
+
+.signupText {
+  font-weight: bold; /* Make link bold */
+}
+
+.formCheck {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Spacing below radio buttons */
+}
+
+.formCheckInput {
+  margin-right: 10px; /* Space between radio and label */
+}

@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer"; // Import your Footer component
+
 import Landing from "./components/layout/Landing";
 import "./App.css";
 import MyRoutes from "./components/routing/MyRoutes"; //from rounting Routers
@@ -39,6 +41,8 @@ const App = () => {
           <Route path="/*" element={<MyRoutes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        {/* Render Footer for all routes */}
+        <Footer />
       </Fragment>
     </Provider>
   );

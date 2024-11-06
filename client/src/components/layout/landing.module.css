@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: row; /* Change to row for horizontal alignment */
+  align-items: center;
+  justify-content: center; /* Centers the cards horizontally */
+  margin-top: 2rem;
+  gap: 1rem; /* Optional: Adds space between the cards */
+  flex-wrap: wrap; /* Optional: Allows cards to wrap on smaller screens */
+}
+
+.card {
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 200px; /* Optional: Sets a fixed width for the cards */
+}
+
+.btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+}

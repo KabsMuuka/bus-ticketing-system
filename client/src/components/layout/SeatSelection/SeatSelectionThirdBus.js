@@ -2,73 +2,51 @@ import React, { useState, useEffect } from "react";
 import { FaAngleDoubleDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { storebus_thirdBus } from "../../../actions/profile";
-import { GetReservedSeats_thirdbus } from "../../../actions/profile";
-import "./Tab.css";
-
+import {
+  storebus_thirdBus,
+  GetReservedSeats_thirdbus,
+} from "../../../actions/profile";
 export default function SeatSelection() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const [name, setName] = useState([]);
   const [arrowDown, setArrowDown] = useState(false);
   const [gender, setGender] = useState([]);
   const [reservedSeat, setReservedSeat] = useState([]);
-  const [seatNumber, setSeatnumber] = useState([]);
+  const [seatNumber, setSeatNumber] = useState([]);
 
-  //using axios to fetch stored seats and compare
   const storedSeats = useSelector((state) => state.profile.getSeat_3);
 
-  //dispatch GetReservedSeats
   useEffect(() => {
     dispatch(GetReservedSeats_thirdbus());
 
     if (storedSeats) {
-      const storedseates = storedSeats.map((seats) => {
-        return seats.seatNumber;
-      });
-      setReservedSeat(storedseates);
+      const storedSeatsNumbers = storedSeats.map((seat) => seat.seatNumber);
+      setReservedSeat(storedSeatsNumbers);
     }
-  }, [dispatch]);
+  }, [dispatch, storedSeats]);
 
   const getSeatNumber = (e) => {
-    let newSeat = e.target.value;
-
-    // Update state with the selected seat number
-    setSeatnumber(seatNumber.concat(newSeat));
-
-    // Display the dropdown (arrow down) when a seat is selected
+    const newSeat = e.target.value;
+    setSeatNumber([...seatNumber, newSeat]);
     setArrowDown(true);
-
-    dispatch(storebus_thirdBus(newSeat)); // Store the selected seat
+    dispatch(storebus_thirdBus(newSeat));
     localStorage.setItem("reservedSeats", newSeat);
   };
 
   const handleGender = (e, seatNo) => {
     const { value } = e.target;
-    setGender(gender.concat(value));
+    setGender([...gender, value]);
   };
 
   const handlePassengerName = (e, seatNo) => {
-    e.preventDefault();
-    let value = e.target.value;
-
-    // console.log(value);
-    if (!value) {
-      return setName("name is required");
-    } else {
-      // Update state and localStorage in a single operation
-      setName((prevNames) => {
-        const updatedNames = [...prevNames, value]; // Create a new array
-        localStorage.setItem("passengerName", JSON.stringify(updatedNames)); // Store it in localStorage
-        return updatedNames; // Return the updated state
-      });
-    }
+    const value = e.target.value;
+    setName((prevNames) => {
+      const updatedNames = [...prevNames, value];
+      localStorage.setItem("passengerName", JSON.stringify(updatedNames));
+      return updatedNames;
+    });
   };
-
-  let passengerName = JSON.parse(localStorage.getItem("passengerName")) || [];
-
-  console.log(passengerName);
 
   const handleSubmitDetails = (e) => {
     e.preventDefault();
@@ -77,235 +55,152 @@ export default function SeatSelection() {
     navigate("/book/payments");
   };
 
-  const renderPassengerData = (seatArray) => {
-    return seatArray.map((seat, idx) => {
-      return (
-        <div key={idx}>
-          <form className="form seatfrm">
-            <p className="text-capitalize text-center">Seat No:{seat}</p>
-            <input
-              className="form-control"
-              onBlur={(e) => handlePassengerName(e, seat)}
-              type="text"
-              name="passenger-name"
-              placeholder="Enter Name"
-            />
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name={`gender-${seat}`}
-                id="male"
-                value="Male"
-                onClick={(e) => handleGender(e, seat)}
-              />
-              <label className="form-check-label" htmlFor="male">
-                Male
-              </label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input
-                className="form-check-input"
-                type="radio"
-                name={`gender-${seat}`}
-                id="female"
-                value="Female"
-                onClick={(e) => handleGender(e, seat)}
-              />
-              <label className="form-check-label" htmlFor="female">
-                Female
-              </label>
-            </div>
-          </form>
-        </div>
-      );
-    });
-  };
-
   const renderSeat = (seatId) => {
     const isReserved = reservedSeat.includes(seatId);
-
     return (
-      <li className="seat">
+      <li className="inline-block m-2">
         <input
           type="checkbox"
           value={seatId}
           id={seatId}
           disabled={isReserved}
           onChange={getSeatNumber}
+          className="hidden"
         />
-        <label htmlFor={seatId}>{isReserved ? "X" : seatId}</label>
+        <label
+          htmlFor={seatId}
+          className={`block w-12 h-12 text-center text-white rounded ${
+            isReserved
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-blue-600 cursor-pointer hover:bg-blue-700"
+          }`}
+        >
+          {isReserved ? "X" : seatId}
+        </label>
       </li>
     );
   };
 
-  return (
-    <div>
-      <div className="ss">
-        <div className="row">
-          <div className="column1">
-            <div className="plane">
-              <form>
-                <ol className="cabin fuselage">
-                  {/* Row 1 */}
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("1A")}
-                      {renderSeat("1B")}
-                      {renderSeat("1C")}
-                      {renderSeat("1D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("2A")}
-                      {renderSeat("2B")}
-                      {renderSeat("2C")}
-                      {renderSeat("2D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  {/* More rows */}
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("3A")}
-                      {renderSeat("3B")}
-                      {renderSeat("3C")}
-                      {renderSeat("3D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("4A")}
-                      {renderSeat("4B")}
-                      {renderSeat("4C")}
-                      {renderSeat("4D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("5A")}
-                      {renderSeat("5B")}
-                      {renderSeat("5C")}
-                      {renderSeat("5D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("6A")}
-                      {renderSeat("6B")}
-                      {renderSeat("6C")}
-                      {renderSeat("6D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("7A")}
-                      {renderSeat("7B")}
-                      {renderSeat("7C")}
-                      {renderSeat("7D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("8A")}
-                      {renderSeat("8B")}
-                      {renderSeat("8C")}
-                      {renderSeat("8D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("9A")}
-                      {renderSeat("9B")}
-                      {renderSeat("9C")}
-                      {renderSeat("9D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("10A")}
-                      {renderSeat("10B")}
-                      {renderSeat("10C")}
-                      {renderSeat("10D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("11A")}
-                      {renderSeat("11B")}
-                      {renderSeat("11C")}
-                      {renderSeat("11D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("12A")}
-                      {renderSeat("12B")}
-                      {renderSeat("12C")}
-                      {renderSeat("12D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("13A")}
-                      {renderSeat("13B")}
-                      {renderSeat("13C")}
-                      {renderSeat("13")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("14A")}
-                      {renderSeat("14B")}
-                      {renderSeat("14C")}
-                      {renderSeat("14D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                  <li className="row row--1">
-                    <ol className="seats" type="A">
-                      {renderSeat("15A")}
-                      {renderSeat("15B")}
-                      {renderSeat("15C")}
-                      {renderSeat("15D")}
-                      {/* More seats */}
-                    </ol>
-                  </li>
-                </ol>
-              </form>
-            </div>
+  const renderPassengerData = (seatArray) => {
+    return seatArray.map((seat, idx) => (
+      <div key={idx} className="mb-4">
+        <form className="space-y-2">
+          <p className="font-semibold text-center">Seat No: {seat}</p>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            onBlur={(e) => handlePassengerName(e, seat)}
+            className="w-full bg-slate-300 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <div className="flex space-x-4">
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name={`gender-${seat}`}
+                value="Male"
+                onClick={(e) => handleGender(e, seat)}
+                className="form-radio text-blue-600"
+              />
+              <span className="ml-2">Male</span>
+            </label>
+            <label className="inline-flex items-center">
+              <input
+                type="radio"
+                name={`gender-${seat}`}
+                value="Female"
+                onClick={(e) => handleGender(e, seat)}
+                className="form-radio text-blue-600"
+              />
+              <span className="ml-2">Female</span>
+            </label>
           </div>
-          <div className="column2">
-            <div className="seatInfo">
-              <form className="form-group">
-                {renderPassengerData(seatNumber)}
-              </form>
-              <div>
-                <button
-                  onClick={(e) => handleSubmitDetails(e)}
-                  className="confirmBtn seatBT"
-                >
-                  Confirm Details
-                </button>
-              </div>
-              <div className={arrowDown ? "activeArrow2" : "nonActive"}>
-                <FaAngleDoubleDown />
-              </div>
-            </div>
+        </form>
+      </div>
+    ));
+  };
+
+  return (
+    <div className="flex flex-col items-center min-h-screen p-8 bg-gray-100">
+      <div className="flex flex-col md:flex-row w-full max-w-5xl">
+        <div className="w-full md:w-2/3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 p-4 bg-white shadow-lg rounded-lg">
+            {[
+              "1A",
+              "1B",
+              "1C",
+              "1D",
+              "2A",
+              "2B",
+              "2C",
+              "2D",
+              "3A",
+              "3B",
+              "3C",
+              "3D",
+            ].map((seat) => renderSeat(seat))}
+
+            {[
+              "4A",
+              "4B",
+              "4C",
+              "4D",
+              "5A",
+              "5B",
+              "5C",
+              "5D",
+              "6A",
+              "6B",
+              "6C",
+              "6D",
+            ].map((seat) => renderSeat(seat))}
+
+            {[
+              "7A",
+              "7B",
+              "7C",
+              "7D",
+              "8A",
+              "8B",
+              "8C",
+              "8D",
+              "9A",
+              "9B",
+              "9C",
+              "9D",
+            ].map((seat) => renderSeat(seat))}
+
+            {[
+              "10A",
+              "1B0",
+              "10C",
+              "10D",
+              "11A",
+              "11B",
+              "11C",
+              "11D",
+              "12A",
+              "12B",
+              "12C",
+              "12D",
+            ].map((seat) => renderSeat(seat))}
+          </div>
+        </div>
+        <div className="w-full md:w-1/3 p-4 space-y-4">
+          <div className="bg-white shadow-lg p-6 rounded-lg">
+            {renderPassengerData(seatNumber)}
+          </div>
+          <button
+            onClick={handleSubmitDetails}
+            className="px-4 py-2 w-full text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Confirm Details
+          </button>
+          <div
+            className={`mt-4 text-center text-3xl ${
+              arrowDown ? "visible" : "hidden"
+            }`}
+          >
+            <FaAngleDoubleDown />
           </div>
         </div>
       </div>

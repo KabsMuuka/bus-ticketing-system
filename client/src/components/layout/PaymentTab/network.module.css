@@ -1,0 +1,83 @@
+/* Container for the section */
+.container {
+  max-width: 600px; /* Limit the width for better readability */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Add padding for spacing */
+  border-radius: 8px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light background color */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Title styling */
+.container h5 {
+  text-align: center; /* Center the title */
+  margin-bottom: 10px; /* Space below the title */
+  font-size: 24px; /* Larger font size */
+  color: #333; /* Dark color for contrast */
+}
+
+/* Paragraph styling */
+.container p {
+  text-align: center; /* Center the text */
+  margin-bottom: 20px; /* Space below the paragraph */
+  color: #555; /* Slightly lighter color for the text */
+}
+
+/* Form styling */
+.form {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+/* Service input styling */
+.serviceInput {
+  width: 100%; /* Full width for the input fields */
+  margin-top: 10px; /* Space above the input section */
+}
+
+/* Label styling */
+.serviceInput label {
+  font-size: 16px; /* Font size for labels */
+  margin-bottom: 5px; /* Space below the labels */
+  color: #333; /* Dark color for contrast */
+}
+
+/* Input field styling */
+.serviceInput input {
+  width: calc(100% - 20px); /* Full width minus padding */
+  padding: 10px; /* Padding inside the input */
+  margin-bottom: 15px; /* Space below the inputs */
+  border: 1px solid #ccc; /* Light border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size for inputs */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+/* Input field focus effect */
+.serviceInput input:focus {
+  border-color: #4caf50; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Button styling */
+.serviceInput button {
+  padding: 10px 20px; /* Padding for the button */
+  background-color: #4caf50; /* Green background color */
+  color: white; /* White text color */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size for button */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Button hover effect */
+.serviceInput button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Spinner styling */
+.spinner {
+  margin-top: 10px; /* Space above the spinner */
+}

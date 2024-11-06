@@ -1,7 +1,6 @@
 "use strict";
 const express = require("express");
 const app = express();
-
 const sequelize = require("./config/db"); // Import your Sequelize instance
 const path = require("path");
 const { strict } = require("assert");
@@ -97,4 +96,6 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 8000;
 
-app.listen(PORT, () => console.log(`server is running on port  ${PORT}`));
+app.listen(PORT, async () => {
+  console.log(`server is running on port  ${PORT}`);
+});
