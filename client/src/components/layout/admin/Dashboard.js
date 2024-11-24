@@ -26,7 +26,7 @@ const AdminPanel = () => {
     //making a busInformation card
     return (
       <>
-        <div className="bg-slate-400 p-4 rounded-md" key={route.id}>
+        <div className="bg-slate-400 rounded-md" key={route.id}>
           <h3 className="font-bold text-xl">🎟 {route.busPosition} 🎟</h3>
           <p className="text-md">Route: {route.stops.join(" - ")}</p>
           <p className="text-md">Time: {route.time} Hours</p>
@@ -50,7 +50,7 @@ const AdminPanel = () => {
     return (
       <>
         <h1 className="text-sm"> sold ticket </h1>
-        <div className="bg-gray-600 p-4 rounded-md" key={ticket.id}>
+        <div className="bg-gray-600 rounded-md" key={ticket.id}>
           <p className="font-bold text-xl">Name {ticket.passengerName}</p>
           <p className="">{ticket.busPosition}</p>
           <p className="text-md">Route: {ticket.from + "-" + ticket.to}</p>
@@ -90,7 +90,7 @@ const AdminPanel = () => {
       <main className="admin-panel">
         <h1>Admin Panel</h1>
         <h1>Bus bus- Information</h1>
-        <div className="flex flex-row space-x-2  border border-dashed p-4 rounded-lg shadow-md  bg-white">
+        <div className="flex flex-row space-x-2 border border-dashed rounded-lg shadow-md  bg-white">
           {busRoutes.map((route) => {
             return (
               <>

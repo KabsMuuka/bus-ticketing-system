@@ -80,16 +80,20 @@ const Landing = () => {
             ? busData.map((bus) => (
                 <li
                   key={bus.id}
-                  className="border border-dashed p-4 rounded-lg shadow-md bg-white max-w-md mx-auto"
+                  className="border border-dashed p-4 rounded-lg shadow-md bg-white max-w-md mx-auto "
                 >
                   <div className="flex flex-col space-y-2">
                     <h3 className="font-bold text-xl">🎟 {bus.busPosition} 🎟</h3>
                     <p className="text-m">Route: {bus.stops.join(" - ")}</p>
                     <p className="text-m">Time: {bus.time} Hours</p>
-                    <p className="text-m">Price: K{bus.price}</p>
+                    <p className="text-md">
+                      Price:{" "}
+                      <span className="text-green-700"> K{bus.price} </span>
+                    </p>{" "}
                     <Link
                       to={`/book/${bus.busPosition}`}
                       className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
+                      onClick={() => localStorage.setItem("price", bus.price)}
                     >
                       Book Bus
                     </Link>
@@ -138,10 +142,14 @@ const Landing = () => {
                   <h3 className="font-bold text-xl">🎟 {city.busPosition} 🎟</h3>
                   <p className="text-md">Route: {city.stops.join(" - ")}</p>
                   <p className="text-md">Time: {city.time} Hours</p>
-                  <p className="text-md">Price: K{city.price}</p>
+                  <p className="text-md">
+                    Price:{" "}
+                    <span className="text-green-700"> K{city.price} </span>
+                  </p>
                   <Link
                     to={`/book/${city.busPosition}`}
                     className="bg-green-500 text-white px-4 py-2 rounded-md mt-4 w-full text-center"
+                    onClick={() => localStorage.setItem("price", city.price)}
                   >
                     Book Bus
                   </Link>

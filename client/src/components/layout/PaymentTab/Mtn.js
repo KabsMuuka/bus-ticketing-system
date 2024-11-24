@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner";
 
@@ -47,6 +47,18 @@ export default function Mtn() {
 
   return (
     <section className="container mx-auto p-4">
+      {/* back button  */}
+      <button className="mt-2 flex items-center space-x-1">
+        <Link to={"/pay"}>
+          <img
+            class="w-5 transition-all duration-2000 hover:scale-110"
+            src="/back-button-svgrepo-com.svg"
+            title="back button"
+          />
+        </Link>
+        <span>pay</span>
+      </button>
+      {/* back button  */}
       <form className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
         <h5 className="text-xl font-semibold mb-2">Pay using MTN</h5>
         <img src="/mtn-logo.svg" width={200} alt="MTN Logo" className="mb-4" />

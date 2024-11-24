@@ -33,8 +33,15 @@ const App = () => {
   return (
     <Provider store={store}>
       <Fragment>
-        {/* Conditionally render Navbar if not on the Ticket page */}
-        {location.pathname !== "/book/ticket" && <Navbar />}
+        {/* Conditionally render Navbar if pathname is not included in the location.pathname  other render*/}
+        {![
+          "/book/ticket",
+          "/login",
+          "/register",
+          "/feedback",
+          "/admin_login",
+          "/admin_dashboard",
+        ].includes(location.pathname) && <Navbar />}
 
         <Routes>
           <Route exact path="/" element={<Landing />} />

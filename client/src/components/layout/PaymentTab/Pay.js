@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { logout } from "../../../actions/auth";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+
 import "./network-service.css";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 
 const NetworkCard = ({
   linkTo,
   imageSrc,
   altText,
   networkName,
-  maxAmount,
   bgColor,
   textColor,
 }) => (
@@ -17,7 +21,6 @@ const NetworkCard = ({
     </Link>
     <div className="label-container">
       <label className="label-network">{networkName}</label>
-      <label className="label-network">Max: {maxAmount}</label>
     </div>
     <label className="arrow">
       <img className="arrow-icon" src="/arrow.png" alt="arrow" />
@@ -25,40 +28,65 @@ const NetworkCard = ({
   </div>
 );
 
-export default function Pay() {
-  const [price, setPrice] = useState(localStorage.getItem("price"));
+const Pay = ({ auth: { isAuthenticated, loading }, logout }) => {
+  const navigate = useNavigate();
 
-  console.log("price", price);
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, loading, navigate]);
+
   return (
-    <div className="networkContainer h-96">
-      {/* Removed form tag if it's not being utilized */}
-      <NetworkCard
-        linkTo="/airtel"
-        imageSrc="/airtel-png.png"
-        altText="Airtel"
-        networkName="Airtel"
-        maxAmount={price}
-        bgColor="bg-airtel"
-        textColor="white"
-      />
-      <NetworkCard
-        linkTo="/mtn"
-        imageSrc="/mtn-logo.svg"
-        altText="MTN"
-        networkName="MTN"
-        maxAmount={price}
-        bgColor="bg-mtn"
-        textColor="black"
-      />
-      <NetworkCard
-        linkTo="/zamtel"
-        imageSrc="/zamtel.png"
-        altText="Zamtel"
-        networkName="Zamtel"
-        maxAmount={price}
-        bgColor="bg-zamtel"
-        textColor="white"
-      />
+    <div>
+      <button className="mt-2 flex items-center space-x-1">
+        <Link to={"/"}>
+          <img
+            class="w-5 transition-all duration-2000 hover:scale-110"
+            src="/back-button-svgrepo-com.svg"
+            title="back button"
+          />
+        </Link>
+        <span>home</span>
+      </button>
+
+      <div className="networkContainer h-96">
+        {/* Removed form tag if it's not being utilized */}
+        <NetworkCard
+          linkTo="/airtel"
+          imageSrc="/airtel-png.png"
+          altText="Airtel"
+          networkName="Airtel"
+          bgColor="bg-airtel"
+          textColor="white"
+        />
+        <NetworkCard
+          linkTo="/mtn"
+          imageSrc="/mtn-logo.svg"
+          altText="MTN"
+          networkName="MTN"
+          bgColor="bg-mtn"
+          textColor="black"
+        />
+        <NetworkCard
+          linkTo="/zamtel"
+          imageSrc="/zamtel.png"
+          altText="Zamtel"
+          networkName="Zamtel"
+          bgColor="bg-zamtel"
+          textColor="white"
+        />
+      </div>
     </div>
   );
-}
+};
+Pay.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Pay);

@@ -370,7 +370,7 @@ export const GetReservedSeats_firstBus = () => async (dispatch) => {
   try {
     const res = await axios.get(`/api/f1/storedSeats`);
 
-    console.log("firstbus ", res.data);
+    // console.log("firstbus ", res.data);
     dispatch({
       type: GET_SEAT_1,
       payload: res.data,

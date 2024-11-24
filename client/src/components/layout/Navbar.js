@@ -6,12 +6,30 @@ import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   return (
-    <div className="navbar bg-slate-300 rounded-lg">
+    <div className="navbar bg-slate-100 rounded-lg">
       <div className="flex-1">
-        <Link to={"/"} className="btn btn-ghost text-xl">
-          Home
-        </Link>
+        {/* if isAuthenticated show home */}
+        {isAuthenticated && (
+          <Link to={"/"} className="btn btn-ghost text-xl">
+            Home
+          </Link>
+        )}
+        {/* if isAuthenticated hide sigin and register */}
+        {!isAuthenticated && (
+          <>
+            <span className="mr-0.5"> Hi! </span>{" "}
+            <Link className="mr-0.5 text-blue-600 underline" to={"/login"}>
+              {/* <i className="fas fa-sign-out-alt mr-2"></i> */}
+              Sign in
+            </Link>
+            <span className="mr-1"> or </span>{" "}
+            <Link className="mr-2 text-blue-600 underline" to={"/register"}>
+              register
+            </Link>
+          </>
+        )}
       </div>
+
       <div className="flex-none">
         <ul className="NavBar-Links flex space-x-4">
           <li>
@@ -28,14 +46,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           )}
 
           {/* Conditionally render the Logout link */}
-          {!isAuthenticated && (
-            <li>
-              <Link to={"/login"}>
-                <i className="fas fa-sign-out-alt mr-2"></i>
-                login
-              </Link>
-            </li>
-          )}
 
           {/* Conditionally render the Logout link */}
           {isAuthenticated && (

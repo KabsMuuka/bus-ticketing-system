@@ -16,6 +16,8 @@ import Profile from "../layout/Profile";
 // import Post from '../post/Post'
 import NotFound from "../layout/NotFound";
 import About from "../layout/About";
+import Feedback from "../layout/Feedback";
+
 import PrivateRoute from "./PrivateRoute";
 // import BookBus from "../layout/BookBus";
 import PaymentTab from "../layout/PaymentTab/PaymentTab";
@@ -45,6 +47,8 @@ const MyRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />
+        <Route path="/feedback" element={<Feedback />} />
+
         <Route path="/admin_login" element={<Admin_lgoin />} />
         <Route path="/admin_dashboard" element={<Admin_dashboard />} />
         <Route

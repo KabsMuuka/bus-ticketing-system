@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,6 +64,17 @@ const Profile = () => {
   let filteredTickets_uniqueCodes;
   return (
     <Fragment>
+      <button className="mt-2 flex items-center space-x-1">
+        <Link to={"/dashboard"}>
+          <img
+            class="w-5 transition-all duration-2000 hover:scale-110"
+            src="/back-button-svgrepo-com.svg"
+            title="back button"
+          />
+        </Link>
+        <span>dashboard</span>
+      </button>
+
       <div className="max-w-4xl mx-auto my-8 p-6 bg-white rounded-lg shadow-lg">
         <div className="bg-blue-500 p-4 rounded-t-lg">
           <h3 className="text-2xl font-bold text-white">
@@ -87,7 +99,7 @@ const Profile = () => {
 
         <div className="bg-gray-50 p-1 rounded-b-lg">
           <h2 className="text-xl font-semibold text-red-500 mb-4">
-            Booked Buses
+            Purchased Tickets
           </h2>
           <div className="flex flex-wrap gap-4">
             {hasTicketForUser ? (
@@ -124,10 +136,15 @@ const Profile = () => {
                       <h5 className="text-gray-600">
                         Route: {data.from + "-" + data.to}
                       </h5>
-                      <h3 className="text-gray-600">Time: {data.time} Hours</h3>
-                      <h3 className="text-gray-600">Price: K{data.price}</h3>
+                      <h3 className="text-gray-600">
+                        Time: <strong>{data.time} Hours</strong>{" "}
+                      </h3>
+                      <h3 className="text-gray-600 ">
+                        Price:{" "}
+                        <span className="text-green-600"> K{data.price} </span>
+                      </h3>
                       <h4 className="text-gray-600">
-                        Date: {data.date.split("T")[0]}
+                        Date: <strong>{data.date.split("T")[0]}</strong>
                       </h4>
                       <button
                         className="mt-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"

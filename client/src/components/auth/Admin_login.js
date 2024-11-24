@@ -22,59 +22,45 @@ const Login = ({ admin, isAuthenticated }) => {
   }
 
   return (
-    <div className="container1">
-      <div className="flex-container">
-        <div className="row full">
-          <div className="col-md-12">
-            <div className="form-container">
-              <div className="row sgnUp ">
-                <div className="col-md-6 right-divider pdding">
-                  <h3 className="lead-text mn-txt">Admin </h3>
-                </div>
-                <div className="left-divider">
-                  <div className="col-md-6">
-                    <form className="form" onSubmit={(e) => onSubmit(e)}>
-                      <div className="form-group2">
-                        <label htmlFor="email">Email :</label>
-                        <input
-                          required
-                          name="email"
-                          placeholder="Ex:- example@gmail.com"
-                          value={email}
-                          type="email"
-                          className="form-control sgnUp"
-                          onChange={(e) => onChange(e)}
-                        />
-                      </div>
-
-                      <div className="form-group2">
-                        <label htmlFor="password">Password :</label>
-                        <input
-                          required
-                          id="password"
-                          name="password"
-                          value={password}
-                          placeholder="password"
-                          type="password"
-                          className="form-control sgnUp"
-                          onChange={(e) => onChange(e)}
-                        />
-                      </div>
-
-                      <div className="form-group2">
-                        <input
-                          required
-                          type="submit"
-                          value="Login"
-                          className="btn-primary btnn form-submit sub-btn sgnUp"
-                        />
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+    <div className="h-96 p-3">
+      <h3 className="text-center p-2 font-bold 2xl:">Login as admin </h3>
+      <div className="left-divider">
+        <div className="flex justify-center">
+          <form className="" onSubmit={(e) => onSubmit(e)}>
+            <div className="form-group2">
+              <label htmlFor="email">Email </label>
+              <input
+                required
+                name="email"
+                placeholder="Ex:- example@gmail.com"
+                value={email}
+                type="email"
+                className="form-control sgnUp"
+                onChange={(e) => onChange(e)}
+              />
             </div>
-          </div>
+
+            <div className="form-group2">
+              <label htmlFor="password">Password </label>
+              <input
+                required
+                id="password"
+                name="password"
+                value={password}
+                placeholder="password"
+                type="password"
+                className="form-control sgnUp"
+                onChange={(e) => onChange(e)}
+              />
+
+              <input
+                required
+                type="submit"
+                value="Login"
+                className="bg-blue-500 p-1 w-30 rounded-lg text-white mt-1"
+              />
+            </div>
+          </form>
         </div>
       </div>
     </div>

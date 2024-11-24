@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { addTicket } from "../../../actions/profile";
 import styles from "./TicketPage.module.css"; // Import your CSS module
 
@@ -102,38 +103,52 @@ export default function TicketPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <article className={styles.ticket}>
-        <header className={styles.ticketHeader}>🎟 PowerTools 🎟</header>
-        <div className={styles.ticketBody}>
-          <section className={styles.ticketSection}>
-            <h3>QR Code</h3>
-            <img src={qrSrc} alt="QR Code" className={styles.qrCode} />
-          </section>
-          <section className={styles.ticketSection}>
-            {getLocationData()}
-            <h3>Seat Number: {getSeatNumbers()}</h3>
-            <p>{getDateTime()}</p>
-          </section>
-          <section className={styles.ticketSection}>
-            <h3>Name: {getPassengerNames()}</h3>
-          </section>
-          <section className={styles.ticketSection}>
-            <h3>Price: K{getPrice()}</h3>
-          </section>
-          <section className={styles.ticketSection}>
-            <h3>Payment Method</h3>
-            <p>Mobile Money</p>
-            <br />
-            <p>Have a nice journey!</p>
-          </section>
-        </div>
-        <footer className={styles.ticketFooter}>
-          <button className={styles.printButton} onClick={printTicket}>
-            Print
-          </button>
-        </footer>
-      </article>
+    <div>
+      {/* back button  */}
+      <button className="mt-2">
+        <Link to={"/"}>
+          <img
+            class="w-7 transition-all duration-2000 hover:scale-110"
+            src="/back-button-svgrepo-com.svg"
+            title="back button"
+          />
+        </Link>
+      </button>
+      {/* back button  */}
+
+      <div className={styles.container}>
+        <article className={styles.ticket}>
+          <header className={styles.ticketHeader}>🎟 PowerTools 🎟</header>
+          <div className={styles.ticketBody}>
+            <section className={styles.ticketSection}>
+              <h3>QR Code</h3>
+              <img src={qrSrc} alt="QR Code" className={styles.qrCode} />
+            </section>
+            <section className={styles.ticketSection}>
+              {getLocationData()}
+              <h3>Seat Number: {getSeatNumbers()}</h3>
+              <p>{getDateTime()}</p>
+            </section>
+            <section className={styles.ticketSection}>
+              <h3>Name: {getPassengerNames()}</h3>
+            </section>
+            <section className={styles.ticketSection}>
+              <h3>Price: K{getPrice()}</h3>
+            </section>
+            <section className={styles.ticketSection}>
+              <h3>Payment Method</h3>
+              <p>Mobile Money</p>
+              <br />
+              <p>Have a nice journey!</p>
+            </section>
+          </div>
+          <footer className={styles.ticketFooter}>
+            <button className={styles.printButton} onClick={printTicket}>
+              Print
+            </button>
+          </footer>
+        </article>
+      </div>
     </div>
   );
 }
