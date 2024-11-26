@@ -33,7 +33,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       <div className="flex-none">
         <ul className="NavBar-Links flex space-x-4">
           <li>
-            <Link to="/">Search Buses</Link>
+            <Link to="/">Search</Link>
           </li>
 
           {isAuthenticated && (

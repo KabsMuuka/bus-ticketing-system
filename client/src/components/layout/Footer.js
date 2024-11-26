@@ -49,8 +49,8 @@ const footer = () => {
         </nav>
         <aside>
           <p className="text-gray-600">
-            Copyright © {new Date().getFullYear()} - All right reserved by ACME
-            Industries Ltd
+            Copyright © {new Date().getFullYear()} - All right reserved by PT
+            Ltd
           </p>
         </aside>
       </footer>

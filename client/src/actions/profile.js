@@ -22,6 +22,8 @@ import {
   REQUEST_TO_PAY,
   VERIFY_PAYMENTS,
   TICKET_CODES,
+  UPDATE_PRICE,
+  GET_ALL_ROUTES,
 } from "./types";
 
 export const getCurrentProfile = () => async (dispatch) => {
@@ -501,4 +503,52 @@ export const ticket_codes = () => async (dispatch) => {
   }
 };
 
+//GET all bus routes
+export const getAllRoutes = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/api/getAllBusRoutes");
+    dispatch({
+      type: GET_ALL_ROUTES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//EDIT PRICE
+export const updatePrice = (priceInfor) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/updateprice", priceInfor);
+    dispatch({
+      type: UPDATE_PRICE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 //
+
+//EDIT PRICE ALL BUS
+export const updatePriceAllbuses = (priceInfor) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/updatepriceAllbuses", priceInfor);
+    dispatch({
+      type: UPDATE_PRICE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};

@@ -27,12 +27,13 @@ const about = () => {
                 <strong>Welcome to Modern PowerTools Bus Travels</strong>
               </h1>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic
-                est quis et iure tempora minima similique amet cum commodi id
-                rerum, in non doloremque veniam accusamus distinctio, at animi
-                ea ducimus, ad eveniet ipsam esse beatae molestias! Tempore,
-                officia, vero, unde distinctio tempora natus blanditiis
-                inventore earum ex officiis excepturi!
+                Experience the future of travel with Modern Powertools Bus
+                Travels. We are committed to providing safe, comfortable, and
+                reliable transportation for our passengers. Our fleet of modern
+                buses and experienced drivers ensure a smooth and enjoyable
+                journey. Whether you're traveling for business or pleasure, we
+                have the perfect solution for your needs. Book your trip today
+                and discover the difference!
               </p>
               <button className="btn btn-primary">Start Connecting !</button>
             </div>
@@ -43,9 +44,8 @@ const about = () => {
         <div className="container text-center">
           <h1>We've got what you need!</h1>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic est
-            quis et iure tempora minima similique amet cum commodi id rerum, in
-            non doloremque veniam accusamus distinctio, at animi ea
+            Flexible Booking Options: Mention the different booking options
+            available, such as online booking and phone reservations.
           </p>
           <button className="btn btn-primary">Check it out!</button>
         </div>
@@ -61,9 +61,10 @@ const about = () => {
                   <i className="fa fa-bar-chart myicon"></i>
                   <h1>Become a Travel Agent</h1>
                   <p>
-                    You can also become a travel agent and add your buses for
-                    traveling. If you interested then go through this link or
-                    add button Link:- bus-business.herokuapp.com
+                    Requirements and Qualifications: Outline the requirements
+                    and qualifications needed to become a travel agent, such as
+                    completing a travel agent certification course or having
+                    relevant experience.
                   </p>
                   <button
                     className="btn btn-primary"
@@ -80,11 +81,12 @@ const about = () => {
                   <i className="fa fa-bell-o myicon"></i>
                   <h1>Best Explanation</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis,
-                    officiis labore harum sequi deleniti itaque rem ea? Labore
-                    repellat doloribus, beatae perferendis placeat recusandae
-                    nam!
+                    Modern Powertools Bus Travels is the leading provider of bus
+                    transportation services in the region. We offer a wide range
+                    of services, including bus rentals, charter services, and
+                    tour packages. Our modern fleet of buses, experienced
+                    drivers, and commitment to safety ensure a comfortable and
+                    enjoyable journey for our passengers.
                   </p>
                 </div>
               </div>
@@ -95,11 +97,12 @@ const about = () => {
                   <i className="fa fa-braille myicon"></i>
                   <h1>Best Explanation</h1>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Reprehenderit in molestias similique et, perferendis,
-                    officiis labore harum sequi deleniti itaque rem ea? Labore
-                    repellat doloribus, beatae perferendis placeat recusandae
-                    nam!
+                    Modern Powertools Bus Travels is the leading provider of bus
+                    transportation services in the region. We offer a wide range
+                    of services, including bus rentals, charter services, and
+                    tour packages. Our modern fleet of buses, experienced
+                    drivers, and commitment to safety ensure a comfortable and
+                    enjoyable journey for our passengers.
                   </p>
                 </div>
               </div>
@@ -111,11 +114,7 @@ const about = () => {
       <section className="message py-5">
         <div className="container text-center">
           <h1>Register and start !!</h1>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic est
-            quis et iure tempora minima similique amet cum commodi id rerum, in
-            non doloremque veniam accusamus distinctio, at animi
-          </p>
+          <p>It's easy and secure!</p>
           <button className="btn btn-primary">Register</button>
         </div>
       </section>
@@ -123,37 +122,15 @@ const about = () => {
       <section>
         <div className="container text-center">
           <h1>Let's Get In Touch!</h1>
-          <p>
-            Ready to start your next project with us? Give us a call or send us
-            an email and we will get back to you as soon as possible!
-          </p>
           <i className="fa fa-phone myicon text-warning"></i>
-          <i className="fa fa-heart myicon text-danger"></i>
-          <p>+077xxxx20</p>
-          <p>PowerTools@gmail.com</p>
+          <p>+26077xxxx20</p>
+          <p>powertools@gmail.zm</p>
         </div>
       </section>
 
       <section className="message py-5">
         <div className="container text-center">
-          <h1>Importants Links</h1>
-          <div className="container">
-            <div className="col-md-12">
-              <p>https://www.facebook.com/PowerTools</p>
-
-              <p>https://www.instagram.com/PowerTools</p>
-
-              <p>https://www.google.com/PowerTools</p>
-
-              <p>https://www.twitter.com/PowerTools</p>
-            </div>
-          </div>
           <button className="btn btn-primary">Contact Us</button>
-        </div>
-      </section>
-      <section className="footer bg-dark">
-        <div className="container py-5 text-white text-center">
-          <p>Copyright © 2024 - PowerTools Ltd.</p>
         </div>
       </section>
     </Fragment>

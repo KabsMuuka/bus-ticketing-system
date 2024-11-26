@@ -41,6 +41,8 @@ const App = () => {
           "/feedback",
           "/admin_login",
           "/admin_dashboard",
+          "/editprice",
+          "/editpriceAll",
         ].includes(location.pathname) && <Navbar />}
 
         <Routes>

@@ -34,8 +34,9 @@ import Mtn from "../layout/PaymentTab/Mtn";
 
 //admin
 import Admin_lgoin from "../auth/Admin_login";
-
-import Admin_dashboard from "../layout/admin/Dashboard";
+import Admin_dashboard from "../layout/admin/Admindashboard";
+import Editprice from "../layout/admin/Editprice";
+import EditpriceAll from "../layout/admin/EditpriceAll";
 
 //
 
@@ -51,6 +52,9 @@ const MyRoutes = () => {
 
         <Route path="/admin_login" element={<Admin_lgoin />} />
         <Route path="/admin_dashboard" element={<Admin_dashboard />} />
+        <Route path="/editprice" element={<Editprice />} />
+        <Route path="/editpriceAll" element={<EditpriceAll />} />
+
         <Route
           path="/dashboard"
           element={<PrivateRoute element={<Dashboard />} />}

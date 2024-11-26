@@ -7,7 +7,7 @@ function DateLimitor() {
 
   // Calculate the date 4 days from today
   const futureDate = new Date();
-  futureDate.setDate(today.getDate() + 4);
+  futureDate.setDate(today.getDate() + 1);
 
   const futureDate_normal_format = futureDate.toISOString().split("T")[0]; // Format as YYYY-MM-DD
 

@@ -47,4 +47,6 @@ export const VERIFY_PAYMENTS = "VERIFY_PAYMENTS";
 //
 //ADMIN
 export const TICKET_CODES = "TICKET_CODES";
+export const UPDATE_PRICE = "UPDATE_PRICE";
+export const GET_ALL_ROUTES = "GET_ALL_ROUTES";
 //

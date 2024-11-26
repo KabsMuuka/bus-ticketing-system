@@ -31,20 +31,23 @@ const Landing = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setHasSearched(true);
+
     setTimeout(() => {
       setHasSearched(false);
     }, 3000);
+
     searchBuses({ start, end }).then((data) => {
       setBusData(Array.isArray(data) ? data : []);
     });
   };
 
+  const isButtonDisabled = !start || !end;
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Input Form */}
       <form
         className="flex flex-col md:flex-row gap-1 w-full max-w-lg mx-auto mb-8"
-        onSubmit={onSubmit}
+        // onSubmit={onSubmit}
       >
         <input
           type="text"
@@ -64,8 +67,10 @@ const Landing = () => {
         />
         <DateLimitor />
         <button
-          type="submit"
+          // type="submit"
+          onClick={onSubmit}
           className="bg-green-500 text-white px-4 py-2 rounded-md"
+          disabled={isButtonDisabled}
         >
           Search
         </button>

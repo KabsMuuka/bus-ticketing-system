@@ -52,8 +52,11 @@ app.use("/api/f1/storedSeats", require("./routers/api/getFirstSeats")); //save s
 app.use("/api/s2/storedSeats", require("./routers/api/getSecondSeats")); //save seats
 app.use("/api/t3/storedSeats", require("./routers/api/getThirdSeats")); //save seats
 
-//admin
+//ADMIN
 app.use("/api/admin", require("./routers/api/admin/ticketCode")); //request to pay
+app.use("/api/getAllBusRoutes", require("./routers/api/availableBuses")); //get all routes to pay
+app.use("/api/updateprice", require("./routers/api/updateprice")); //updateprice
+app.use("/api/updatepriceAllbuses", require("./routers/api/updatepriceAllbus")); //updatepriceAllbuses
 
 //
 

@@ -18,6 +18,8 @@ import {
   VERIFY_PAYMENTS,
   //ADMIN
   TICKET_CODES,
+  UPDATE_PRICE,
+  GET_ALL_ROUTES,
 } from "../actions/types";
 
 const initialState = {
@@ -42,7 +44,8 @@ const initialState = {
 
   //ADMIN
   ticket_codes: [],
-
+  update_price: [],
+  get_all_routes: [],
   //
   loading: true,
   error: {},
@@ -165,6 +168,19 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         ticket_codes: payload,
+        loading: false,
+      };
+    case UPDATE_PRICE:
+      return {
+        ...state,
+        update_price: payload,
+        loading: false,
+      };
+
+    case GET_ALL_ROUTES:
+      return {
+        ...state,
+        get_all_routes: payload,
         loading: false,
       };
     default:
