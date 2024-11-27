@@ -13,7 +13,7 @@ export default function Mtn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const currentUser = useSelector((state) => state.profile.profile);
+  const currentUser = useSelector((state) => state.profile.getCurrentUser);
 
   useEffect(() => {
     dispatch(getCurrentProfile());
@@ -46,52 +46,70 @@ export default function Mtn() {
   };
 
   return (
-    <section className="container mx-auto p-4">
-      {/* back button  */}
+    <div>
+      {/* Back Button */}
       <button className="mt-2 flex items-center space-x-1">
         <Link to={"/pay"}>
           <img
-            class="w-5 transition-all duration-2000 hover:scale-110"
+            className="w-5 transition-all duration-2000 hover:scale-110"
             src="/back-button-svgrepo-com.svg"
             title="back button"
           />
         </Link>
-        <span>pay</span>
+        <span className="font-medium text-lg text-blue-600">Back</span>
       </button>
-      {/* back button  */}
-      <form className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg">
-        <h5 className="text-xl font-semibold mb-2">Pay using MTN</h5>
-        <img src="/mtn-logo.svg" width={200} alt="MTN Logo" className="mb-4" />
-        <p className="mb-4 text-lg text-gray-700">{userContact}</p>
 
-        <div className="flex flex-col space-y-4 w-full max-w-xs">
-          {loading && <Spinner className="mt-4" />}{" "}
-          {/* Spinner below the form */}
-          <label className="font-medium">{userContact}</label>
-          <input
-            type="text"
-            className="input bg-slate-200 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="phone number"
-            value={userContact}
-            onChange={handleMerchantID}
+      {/* Payment Form */}
+
+      <section className="container flex justify-center mx-auto p-4">
+        <form className="flex flex-col items-center bg-white p-6 rounded-lg shadow-lg w-full max-w-md mt-4">
+          <h5 className="text-xl font-semibold mb-2">Pay using MTN</h5>
+          <img
+            src="/mtn-logo.svg"
+            width={200}
+            alt="MTN Logo"
+            className="mb-4"
           />
-          <label className="font-medium">Amount</label>
-          <input
-            type="text"
-            className="input bg-slate-200 border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Price"
-            value={amount}
-            readOnly // Make it read-only as it's retrieved from localStorage
-          />
-          <button
-            type="button"
-            onClick={moveToTicketPage}
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-          >
-            Make Payment
-          </button>
-        </div>
-      </form>
-    </section>
+          <p className="mb-4 text-lg text-gray-700">
+            Please enter your contact details
+          </p>
+
+          {/* Form fields */}
+          <div className="flex flex-col space-y-4 w-full">
+            {loading && (
+              <div className="flex justify-center mb-4">
+                <Spinner className="mt-4" /> {/* Spinner for loading */}
+              </div>
+            )}
+            <label className="font-medium text-gray-800">Phone Number</label>
+            <input
+              type="tel"
+              className="input bg-slate-200 border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter phone number"
+              value={userContact}
+              onChange={handleMerchantID}
+              required
+            />
+
+            <label className="font-medium text-gray-800">Amount</label>
+            <input
+              type="text"
+              className="input bg-slate-200 border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Price"
+              value={amount}
+              readOnly
+            />
+
+            <button
+              type="button"
+              onClick={moveToTicketPage}
+              className="bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+            >
+              Make Payment
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 }

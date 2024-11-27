@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchBuses, popularRoutes } from "../../actions/profile";
 import DateLimitor from "./DateLimitor";
 import generatedCode from "./generateUniqueCode";
+import { getTickets } from "../../actions/profile";
+import { getCurrentProfile } from "../../actions/profile";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -11,11 +13,27 @@ const Landing = () => {
   const { start, end } = formData;
   const [busData, setBusData] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [showmessage, setShowmessage] = useState(false);
+  const [message, setMessage] = useState(false);
 
   const Routes = useSelector((state) => state.profile.popularRoutes) || [];
+  const bookedtickets = useSelector((state) => state.profile.getTickets) || [];
+  const currentUser =
+    useSelector((state) => state.profile.getCurrentUser) || [];
 
+  //pupular routes
   useEffect(() => {
     dispatch(popularRoutes());
+  }, [dispatch]);
+
+  //booked tickets
+  useEffect(() => {
+    dispatch(getTickets());
+  }, [dispatch]);
+
+  //all buses
+  useEffect(() => {
+    dispatch(getCurrentProfile());
   }, [dispatch]);
 
   useEffect(() => {
@@ -41,17 +59,31 @@ const Landing = () => {
     });
   };
 
+  const userId = currentUser.id; // Assuming you have the current user's id
+  const userTickets = bookedtickets.filter(
+    (ticket) => ticket.userId === userId
+  );
+
+  //if user has book more than 1 but less than 2 tickets disable book bus btn
+  const disablebookButton = userTickets.length >= 2;
+  useEffect(() => {
+    if (disablebookButton) {
+      setShowmessage(true);
+      setMessage(
+        "You have reached the maximum number of tickets allowed. Thank you for booking with us!"
+      );
+    }
+  }, []);
+
+  //search button
   const isButtonDisabled = !start || !end;
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Input Form */}
-      <form
-        className="flex flex-col md:flex-row gap-1 w-full max-w-lg mx-auto mb-8"
-        // onSubmit={onSubmit}
-      >
+      <form className="flex flex-wrap items-center justify-center gap-4 w-full max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
         <input
           type="text"
-          className="input bg-slate-100 input-bordered w-full max-w-xs"
+          className="input bg-slate-100 input-bordered w-[200px] p-4 rounded-md"
           name="start"
           placeholder="From"
           value={start}
@@ -61,47 +93,64 @@ const Landing = () => {
           type="text"
           name="end"
           placeholder="Destination"
-          className="input  bg-slate-100  input-bordered  w-full max-w-xs"
+          className="input bg-slate-100 input-bordered w-[200px] p-4 rounded-md"
           value={end}
           onChange={handleInputChange}
         />
         <DateLimitor />
         <button
-          // type="submit"
           onClick={onSubmit}
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
+          className="bg-green-500 text-white px-6 py-3 rounded-md hover:bg-green-600 transition duration-300"
           disabled={isButtonDisabled}
         >
           Search
         </button>
       </form>
 
+      {showmessage && (
+        <p className="text-center mt-4 text-red-600 font-semibold bg-red-100 p-4 rounded-lg shadow-sm">
+          {message}
+        </p>
+      )}
       {/* Available Buses */}
-      <div className="mt-4">
-        {/* <ul className="grid grid-cols-1 place-items-center gap-6 mt-4"> */}
-
+      <div className="mt-8">
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {busData.length > 0
             ? busData.map((bus) => (
                 <li
                   key={bus.id}
-                  className="border border-dashed p-4 rounded-lg shadow-md bg-white max-w-md mx-auto "
+                  className="border border-dashed p-6 rounded-lg shadow-md bg-white max-w-md mx-auto transition transform hover:scale-105 hover:shadow-lg"
                 >
-                  <div className="flex flex-col space-y-2">
-                    <h3 className="font-bold text-xl">🎟 {bus.busPosition} 🎟</h3>
-                    <p className="text-m">Route: {bus.stops.join(" - ")}</p>
-                    <p className="text-m">Time: {bus.time} Hours</p>
-                    <p className="text-md">
+                  <div className="flex flex-col space-y-4">
+                    <h3 className="font-bold text-xl text-blue-600">
+                      🎟 {bus.busPosition} 🎟
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      Route: {bus.stops.join(" - ")}
+                    </p>
+                    <p className="text-sm text-gray-600">
+                      Time: {bus.time} Hours
+                    </p>
+                    <p className="text-md text-gray-800">
                       Price:{" "}
                       <span className="text-green-700"> K{bus.price} </span>
-                    </p>{" "}
-                    <Link
-                      to={`/book/${bus.busPosition}`}
-                      className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                      onClick={() => localStorage.setItem("price", bus.price)}
-                    >
-                      Book Bus
-                    </Link>
+                    </p>
+                    {disablebookButton ? (
+                      <button
+                        className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 cursor-not-allowed"
+                        disabled
+                      >
+                        Book bus
+                      </button>
+                    ) : (
+                      <Link
+                        to={`/book/${bus.busPosition}`}
+                        className="bg-blue-500 text-white px-6 py-3 rounded-md mt-4 w-full text-center hover:bg-blue-600 transition duration-300"
+                        onClick={() => localStorage.setItem("price", bus.price)}
+                      >
+                        Book Bus
+                      </Link>
+                    )}
                   </div>
                 </li>
               ))
@@ -124,7 +173,7 @@ const Landing = () => {
                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                       />
                     </svg>
-                    <span className="">No buses found!</span>
+                    <span>No buses found!</span>
                   </div>
                 </div>
               )}
@@ -141,28 +190,44 @@ const Landing = () => {
             Routes.map((city) => (
               <li
                 key={city.id}
-                className="border border-dashed p-4 rounded-lg shadow-md bg-white max-w-md mx-auto"
+                className="border border-dashed p-6 rounded-lg shadow-md bg-white max-w-md mx-auto transition transform hover:scale-105 hover:shadow-lg"
               >
-                <div className="flex flex-col space-y-2">
-                  <h3 className="font-bold text-xl">🎟 {city.busPosition} 🎟</h3>
-                  <p className="text-md">Route: {city.stops.join(" - ")}</p>
-                  <p className="text-md">Time: {city.time} Hours</p>
-                  <p className="text-md">
+                <div className="flex flex-col space-y-4">
+                  <h3 className="font-bold text-xl text-green-600">
+                    🎟 {city.busPosition} 🎟
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Route: {city.stops.join(" - ")}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    Time: {city.time} Hours
+                  </p>
+                  <p className="text-md text-gray-800">
                     Price:{" "}
                     <span className="text-green-700"> K{city.price} </span>
                   </p>
-                  <Link
-                    to={`/book/${city.busPosition}`}
-                    className="bg-green-500 text-white px-4 py-2 rounded-md mt-4 w-full text-center"
-                    onClick={() => localStorage.setItem("price", city.price)}
-                  >
-                    Book Bus
-                  </Link>
+
+                  {disablebookButton ? (
+                    <button
+                      className="bg-gray-500 text-white px-4 py-2 rounded-md mt-2 cursor-not-allowed"
+                      disabled
+                    >
+                      Book bus
+                    </button>
+                  ) : (
+                    <Link
+                      to={`/book/${city.busPosition}`}
+                      className="bg-green-500 text-white px-6 py-3 rounded-md mt-4 w-full text-center hover:bg-green-600 transition duration-300"
+                      onClick={() => localStorage.setItem("price", city.price)}
+                    >
+                      Book Bus
+                    </Link>
+                  )}
                 </div>
               </li>
             ))
           ) : (
-            <p>No Popular Routes Found.</p>
+            <div>No popular routes found.</div>
           )}
         </ul>
       </div>

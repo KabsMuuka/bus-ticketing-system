@@ -12,6 +12,7 @@ import {
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
+import { useNavigate } from "react-router-dom";
 
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -31,6 +32,7 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
 export const register =
   ({ name, email, phoneNumber, gender, password }) =>
   async (dispatch) => {
@@ -39,6 +41,8 @@ export const register =
         "Content-Type": "application/json",
       },
     };
+
+    const navigate = useNavigate();
 
     const body = JSON.stringify({
       name,
@@ -76,6 +80,9 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
   try {
     const res = await axios.post("/api/login", body, config);
+
+    console.log("Register Response: ", res); // Log response
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,

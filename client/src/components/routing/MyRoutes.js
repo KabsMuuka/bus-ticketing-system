@@ -20,7 +20,6 @@ import Feedback from "../layout/Feedback";
 
 import PrivateRoute from "./PrivateRoute";
 // import BookBus from "../layout/BookBus";
-import PaymentTab from "../layout/PaymentTab/PaymentTab";
 import SeatSelection from "../layout/SeatSelection/SeatSelection";
 import SeatSelection2 from "../layout/SeatSelection/SeatSelectionSecondBus";
 import SeatSelection3 from "../layout/SeatSelection/SeatSelectionThirdBus";
@@ -33,10 +32,11 @@ import Mtn from "../layout/PaymentTab/Mtn";
 //end of payment
 
 //admin
-import Admin_lgoin from "../auth/Admin_login";
-import Admin_dashboard from "../layout/admin/Admindashboard";
+import Adminlgoin from "../auth/Admin_login";
+import Admindashboard from "../layout/admin/Admindashboard";
 import Editprice from "../layout/admin/Editprice";
 import EditpriceAll from "../layout/admin/EditpriceAll";
+import BookedTickets from "../layout/admin/bookedTickets";
 
 //
 
@@ -50,10 +50,11 @@ const MyRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/feedback" element={<Feedback />} />
 
-        <Route path="/admin_login" element={<Admin_lgoin />} />
-        <Route path="/admin_dashboard" element={<Admin_dashboard />} />
+        <Route path="/admin_login" element={<Adminlgoin />} />
+        <Route path="/admin_dashboard" element={<Admindashboard />} />
         <Route path="/editprice" element={<Editprice />} />
         <Route path="/editpriceAll" element={<EditpriceAll />} />
+        <Route path="/bookedtickets" element={<BookedTickets />} />
 
         <Route
           path="/dashboard"

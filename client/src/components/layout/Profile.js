@@ -23,7 +23,8 @@ const Profile = () => {
     dispatch(getTickets());
   }, [dispatch]);
 
-  const currentUser = useSelector((state) => state.profile.profile) || [];
+  const currentUser =
+    useSelector((state) => state.profile.getCurrentUser) || [];
   const savedTickets = useSelector((state) => state.profile.getTickets) || [];
 
   // Generating QR Code

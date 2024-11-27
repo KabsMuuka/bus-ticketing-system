@@ -1,10 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer"; // Import your Footer component
@@ -43,6 +38,7 @@ const App = () => {
           "/admin_dashboard",
           "/editprice",
           "/editpriceAll",
+          "/bookedtickets",
         ].includes(location.pathname) && <Navbar />}
 
         <Routes>

@@ -12,17 +12,23 @@ const User = require("../../models/Users");
 router.post(
   "/",
   [
-    check("name", "Name is required").not().isEmpty(),
-    check("email", "Please add a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
+    check("name").notEmpty().withMessage("Name is required"),
+    check("email").isEmail().withMessage("Valid email is required"),
+    check("phoneNumber")
+      .isMobilePhone()
+      .withMessage("Valid phone number is required"),
+    check("gender").notEmpty().withMessage("Gender is required"),
+    check("password")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
   ],
 
   async (req, res) => {
+    console.log(req.body);
     const errors = validationResult(req);
-    console.log(errors.array());
+    // Check errors array
+    console.log("Validation Errors:", errors.array());
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }

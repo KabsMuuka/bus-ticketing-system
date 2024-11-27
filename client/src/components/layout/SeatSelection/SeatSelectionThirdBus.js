@@ -9,18 +9,21 @@ import {
   storebus_thirdBus,
   GetReservedSeats_thirdbus,
 } from "../../../actions/profile";
+import { getCurrentProfile } from "../../../actions/profile";
 
 const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const storedSeats = useSelector((state) => state.profile.getSeat_3);
+  const getcurrentUser = useSelector((state) => state.profile.getCurrentUser);
 
   const [name, setName] = useState([]);
   const [arrowDown, setArrowDown] = useState(false);
-  const [gender, setGender] = useState([]);
+  // const [gender, setGender] = useState([]);
   const [reservedSeat, setReservedSeat] = useState([]);
   const [seatNumber, setSeatNumber] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
 
   useEffect(() => {
     if (!isAuthenticated && !loading) {
@@ -36,6 +39,10 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
       setReservedSeat(storedSeatsNumbers);
     }
   }, [dispatch, storedSeats]);
+
+  useEffect(() => {
+    dispatch(getCurrentProfile());
+  }, [dispatch]);
 
   const getSeatNumber = (e) => {
     const newSeat = e.target.value;
@@ -65,6 +72,17 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
     alert("Seat Confirmed.");
     navigate("/book/payments");
   };
+
+  //username
+  useEffect(() => {
+    // Safely fetch the user's name
+    const CurrentUserName = getcurrentUser?.name || "Guest";
+
+    // Set current user only if it differs
+    if (currentUser !== CurrentUserName) {
+      setCurrentUser(CurrentUserName);
+    }
+  }, [currentUser]); // Empty dependency array ensures this only runs once
 
   const renderSeat = (seatId) => {
     const isReserved = reservedSeat.includes(seatId);
@@ -101,6 +119,8 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
             type="text"
             placeholder="Enter Name"
             onBlur={(e) => handlePassengerName(e, seat)}
+            value={currentUser}
+            disabled
             className="w-full bg-slate-300 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           {/* <div className="flex space-x-4">

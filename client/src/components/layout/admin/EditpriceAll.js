@@ -1,9 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { popularRoutes } from "../../../actions/profile";
 import { getAllRoutes } from "../../../actions/profile";
 import { updatePriceAllbuses } from "../../../actions/profile";
 
@@ -21,6 +19,10 @@ const EditPrice = () => {
 
   const ID = localStorage.getItem("id");
   const id = Number(ID);
+
+  /*is code snippet creates a unique list of routes from a potentially nested array (AllBusRoutes)
+   by eliminating duplicate entries
+   based on the id property.*/
   const uniqueRoutes = [
     ...new Map(AllBusRoutes.flat().map((route) => [route.id, route])).values(),
   ];
@@ -53,6 +55,7 @@ const EditPrice = () => {
                       class="w-5 transition-all duration-2000 hover:scale-110"
                       src="/back-button-svgrepo-com.svg"
                       title="back button"
+                      alt="iconBtn"
                     />
                   </Link>
                   <span>dashboard</span>

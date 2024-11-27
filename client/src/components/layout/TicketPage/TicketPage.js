@@ -1,12 +1,15 @@
 import { React, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addTicket } from "../../../actions/profile";
 import styles from "./TicketPage.module.css"; // Import your CSS module
+import { getCurrentProfile } from "../../../actions/profile";
 
 export default function TicketPage() {
   const dispatch = useDispatch();
   const [qrSrc, setQrSrc] = useState("");
+
+  const getcurrentUser = useSelector((state) => state.profile.getCurrentUser);
 
   useEffect(() => {
     const uniqueCode = localStorage.getItem("uniqueCode");
@@ -18,9 +21,13 @@ export default function TicketPage() {
   }, []);
 
   useEffect(() => {
+    dispatch(getCurrentProfile());
+  }, [dispatch]);
+
+  useEffect(() => {
     const saveData = () => {
       const formData = {
-        passengerName: JSON.parse(localStorage.getItem("passengerName")) || [],
+        passengerName: getcurrentUser.name || "Guest",
         currentUserId: localStorage.getItem("currentUserId"),
         from: localStorage.getItem("start"),
         to: localStorage.getItem("destination"),
@@ -63,14 +70,9 @@ export default function TicketPage() {
   };
 
   const getPassengerNames = () => {
-    const passengerName =
-      JSON.parse(localStorage.getItem("passengerName")) || [];
+    const passengerName = getcurrentUser.name || "Geust";
     return passengerName.length > 0 ? (
-      passengerName.map((name, idx) => (
-        <span key={idx} className={styles.name}>
-          {name}
-        </span>
-      ))
+      <span>{passengerName}</span>
     ) : (
       <p>No passenger names available</p>
     );

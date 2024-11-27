@@ -27,9 +27,10 @@ const initialState = {
   delete_account: [],
 
   popularRoutes: [],
-  profile: {}, //for GET_PROFILE, //expects user typeOf array
   profiles: [],
   repos: [],
+
+  getCurrentUser: [],
   //mine
 
   getSeat_1: [],
@@ -57,12 +58,12 @@ function profileReducer(state = initialState, action) {
 
   switch (type) {
     case GET_PROFILE:
-    case UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload,
+        getCurrentUser: payload,
         loading: false,
       };
+
     case GET_PROFILES:
       return {
         ...state,

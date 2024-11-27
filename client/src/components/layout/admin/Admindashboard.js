@@ -1,11 +1,8 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { ticket_codes } from "../../../actions/profile"; // Import the action correctly
 import { popularRoutes } from "../../../actions/profile";
-import { getTickets } from "../../../actions/profile";
 import { getAllRoutes } from "../../../actions/profile";
 
 import { logout } from "../../../actions/auth";
@@ -15,13 +12,9 @@ import PropTypes from "prop-types";
 const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [availableCodes, setAvailableCodes] = useState("");
-  const [showAvailableCodes, setShowAvailableCode] = useState("");
 
   const busRoutes = useSelector((state) => state.profile.popularRoutes) || [];
-  const bookedTickets = useSelector((state) => state.profile.getTickets) || [];
   const AllBusRoutes = useSelector((state) => state.profile.get_all_routes);
-  const codes = useSelector((state) => state.profile.ticket_codes);
 
   //popular routes
   useEffect(() => {
@@ -75,6 +68,7 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
   return (
     <>
       <main className="p-2">
+        {/* logout */}
         {isAuthenticated && (
           <Link to={"/login"} onClick={logout}>
             <span className="p-1 bg-red-600 rounded-md text-white">
@@ -83,11 +77,24 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
             </span>
           </Link>
         )}
+        {/* logout */}
         <h1 className="text-center font-bold text-2xl p-3">Admin Panel</h1>
         <p className="text-center text-sm">
           <em>Access restricted to authorized personnel only</em>
         </p>
-        <div className="flex flex-wrap gap-4 justify-center bg-slate-200 p-4">
+        {/* bookedTicket */}
+        <p className="flex justify-end">
+          <Link
+            to={"/bookedtickets"}
+            className="bg-orange-400 text-white p-1 m-1 rounded-md"
+          >
+            Booked Tickets
+          </Link>
+        </p>
+
+        {/* bookedTicket */}
+
+        <div className="flex flex-wrap gap-4 justify-center bg-slate-200 p-4 rounded-md">
           {busRoutes.map((route) => {
             return (
               <>

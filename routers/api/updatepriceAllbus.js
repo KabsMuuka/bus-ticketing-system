@@ -6,7 +6,7 @@ const Buses = require("../../models/Buses");
 router.post("/", async (req, res) => {
   const { price, id } = req.body;
 
-  // console.log(price, id);
+  console.log(price, id);
 
   await Buses.sequelize
     .query(`UPDATE Buses SET price = ${price} WHERE id = ${id}`)

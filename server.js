@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 // const Bus = require("./models/Buses");
 // const City = require("./models/popularCities");
 
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
 app.get("/", (req, res) => res.send("Api is running "));
 

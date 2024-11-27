@@ -1,18 +1,14 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { popularRoutes } from "../../../actions/profile";
-import { getTickets } from "../../../actions/profile";
 import { updatePrice } from "../../../actions/profile";
 
 const EditPrice = () => {
   const dispatch = useDispatch();
 
   const busRoutes = useSelector((state) => state.profile.popularRoutes) || [];
-  const bookedTickets = useSelector((state) => state.profile.getTickets) || [];
-  const codes = useSelector((state) => state.profile.ticket_codes);
   const [updatedPrice, setUpdatedPrice] = useState("");
 
   //popular routes
@@ -52,6 +48,7 @@ const EditPrice = () => {
                       class="w-5 transition-all duration-2000 hover:scale-110"
                       src="/back-button-svgrepo-com.svg"
                       title="back button"
+                      alt="iconBtn"
                     />
                   </Link>
                   <span>dashboard</span>

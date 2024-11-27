@@ -16,7 +16,8 @@ const Dashboard = () => {
     dispatch(getTickets());
   }, [dispatch]);
 
-  const currentUser = useSelector((state) => state.profile.profile) || [];
+  const currentUser =
+    useSelector((state) => state.profile.getCurrentUser) || [];
   const booked_tickets = useSelector((state) => state.profile.getTickets) || [];
   localStorage.setItem("currentUserId", currentUser.id); // save user id
 
@@ -25,43 +26,54 @@ const Dashboard = () => {
   ); // check if the user has booked tickets
 
   return (
-    <div className="flex flex-col items-center justify-center h-96">
-      <Fragment>
-        <h1 className="text-3xl font-bold mb-4">Welcome To Dashboard</h1>
-        <p className="text-lg mb-6">
-          <i className="fas fa-user"></i> Hello{" "}
-          <strong>{currentUser.name}</strong>, Nice To Meet You!!
-        </p>
-        {/* Checking if false */}
-        {hasCurrentUserTicket === false ? (
-          <Fragment>
-            <p className="text-red-500 mb-4">
-              You don't have any booked buses.
-            </p>
-            <Link
-              to="/"
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-            >
-              Book Bus
-            </Link>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <div className="my-2">
-              <p className="text-green-500 mb-4">
-                <i className="fas fa-user"></i> You have pending tickets, check
-                your profile.
+    <div className="bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8">
+        <Fragment>
+          <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
+            Welcome to Your Dashboard
+          </h1>
+
+          <p className="text-lg text-gray-600 mb-6 text-center">
+            <i className="fas fa-user-circle text-blue-500"></i> Hello{" "}
+            <strong className="text-blue-700">{currentUser.name}</strong>, glad
+            to see you!
+          </p>
+
+          {/* Checking if user has tickets */}
+          {hasCurrentUserTicket === false ? (
+            <Fragment>
+              <p className="text-red-500 mb-6 text-center">
+                You don't have any booked buses. Book a bus now!
               </p>
-              <Link
-                to="/"
-                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
-              >
-                Book Bus
-              </Link>
-            </div>
-          </Fragment>
-        )}
-      </Fragment>
+              <div className="text-center">
+                <Link
+                  to="/"
+                  className="inline-block bg-blue-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
+                >
+                  <i className="fas fa-bus-alt mr-2"></i> Book Bus
+                </Link>
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div className="my-6 text-center">
+                <p className="text-green-500 mb-6">
+                  <i className="fas fa-check-circle text-green-600 mr-2"></i>{" "}
+                  You have pending tickets. Check your profile.
+                </p>
+                <div className="text-center">
+                  <Link
+                    to="/profile"
+                    className="inline-block bg-green-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-green-600 transition duration-300"
+                  >
+                    <i className="fas fa-user-circle mr-2"></i> View Tickets
+                  </Link>
+                </div>
+              </div>
+            </Fragment>
+          )}
+        </Fragment>
+      </div>
     </div>
   );
 };

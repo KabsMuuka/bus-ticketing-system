@@ -6,54 +6,69 @@ import { logout } from "../../actions/auth";
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   return (
-    <div className="navbar bg-slate-100 rounded-lg">
-      <div className="flex-1">
-        {/* if isAuthenticated show home */}
+    <div className="navbar bg-slate-100 rounded-lg shadow-lg p-4">
+      <div className="flex-1 flex items-center">
+        {/* Display Home link if authenticated */}
         {isAuthenticated && (
-          <Link to={"/"} className="btn btn-ghost text-xl">
+          <Link to="/dashboard" className="btn btn-ghost text-xl font-semibold">
             Home
           </Link>
         )}
-        {/* if isAuthenticated hide sigin and register */}
+
+        {/* Sign-in and register links if not authenticated */}
         {!isAuthenticated && (
-          <>
-            <span className="mr-0.5"> Hi! </span>{" "}
-            <Link className="mr-0.5 text-blue-600 underline" to={"/login"}>
-              {/* <i className="fas fa-sign-out-alt mr-2"></i> */}
+          <div className="flex items-center space-x-2">
+            <span>Hi!</span>
+            <Link
+              className="text-blue-600 underline hover:text-blue-800"
+              to="/login"
+            >
               Sign in
             </Link>
-            <span className="mr-1"> or </span>{" "}
-            <Link className="mr-2 text-blue-600 underline" to={"/register"}>
-              register
+            <span>or</span>
+            <Link
+              className="text-blue-600 underline hover:text-blue-800"
+              to="/register"
+            >
+              Register
             </Link>
-          </>
+          </div>
         )}
       </div>
 
+      {/* Right side links */}
       <div className="flex-none">
-        <ul className="NavBar-Links flex space-x-4">
+        <ul className="flex items-center space-x-6">
           <li>
-            <Link to="/">Search</Link>
+            <Link
+              to="/"
+              className="text-gray-700 hover:text-gray-900 font-medium"
+            >
+              Search
+            </Link>
           </li>
 
+          {/* Profile link if authenticated */}
           {isAuthenticated && (
             <li>
-              <Link to="/profile" className="flex items-center">
-                <i className="fas fa-user mr-2"></i>
-                Profile
+              <Link
+                to="/profile"
+                className="flex items-center text-gray-700 hover:text-gray-900 font-medium"
+              >
+                <i className="fas fa-user mr-2"></i> Profile
               </Link>
             </li>
           )}
 
-          {/* Conditionally render the Logout link */}
-
-          {/* Conditionally render the Logout link */}
+          {/* Logout link if authenticated */}
           {isAuthenticated && (
             <li>
-              <a onClick={logout} href="#!">
-                <i className="fas fa-sign-out-alt mr-2"></i>
-                Logout
-              </a>
+              <button
+                onClick={logout}
+                className="text-red-600 hover:text-red-800 font-medium flex items-center"
+              >
+                <i className="fas fa-sign-out-alt mr-2"></i> Logout
+              </button>
             </li>
           )}
         </ul>
