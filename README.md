@@ -10,12 +10,6 @@ The Bus ticket application is composed of the following Features:
 
 # Preview 🏞️ 🌅
 
-![Alt text](<Screenshot 2023-12-02 at 2.29.10 PM-1.png>)
-![Alt text](<Screenshot 2023-12-02 at 2.34.36 PM-2.png>)
-![Alt text](<Screenshot 2023-12-02 at 2.33.15 PM-1.png>) ![Alt text](<Screenshot 2023-12-02 at 2.33.38 PM-1.png>)
-
-![Demo Video](40852031-8656-40c8-8aed-e01c5d0394cc.mp4)
-
 ### Front-End
 
 - Sign-In & Sign-Up Pages.
@@ -24,7 +18,7 @@ The Bus ticket application is composed of the following Features:
 
 - Password hashing using passport js.
 
-- Has a profile page, which will display all information about the signed in user.
+- Has a profile page, which will display all information about the signed in user .
 
 - List of cities for users to choose from (starting city & destination city).
 
@@ -60,7 +54,7 @@ This project also demonstrates:
 - [Babel](https://babeljs.io/) - A transpiler for javascript
 - [Webpack](https://webpack.js.org/) - A module bundler
 - [SCSS](http://sass-lang.com/) - A css metalanguage
-- [Bootstrap 4](https://getbootstrap.com/) - Bootstrap is an open source toolkit for developing with HTML, CSS, and JS
+- [Tailwind ](https://tailwindcss.com/) - Bootstrap is an open source toolkit for developing with HTML, CSS, and JS
 - [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
 - [Express js](http://expressjs.com/) - Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 - [Passport Js](http://www.passportjs.org/) - Passport is authentication middleware for Node.js. Extremely flexible and modular, Passport can be unobtrusively dropped in to any Express-based web application.
