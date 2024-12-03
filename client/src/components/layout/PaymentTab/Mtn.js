@@ -45,6 +45,20 @@ export default function Mtn() {
     }
   };
 
+  // Retrieve and parse passenger names
+  const passNames = localStorage.getItem("passengerNames");
+  const parsedNames = passNames ? JSON.parse(passNames) : {}; // Parse safely
+
+  // Count the number of passengers
+  const count = Object.keys(parsedNames).length; // Count the number of keys
+
+  // Retrieve and parse price
+  const calculatePrice = localStorage.getItem("price");
+  const numPrice = Number(calculatePrice); // Convert price to a number
+
+  // Calculate the final price
+  const finalPrice = count * numPrice;
+
   return (
     <div>
       {/* Back Button */}
@@ -96,7 +110,7 @@ export default function Mtn() {
               type="text"
               className="input bg-slate-200 border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Price"
-              value={amount}
+              value={finalPrice}
               readOnly
             />
 

@@ -49,7 +49,6 @@ const Landing = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setHasSearched(true);
-
     setTimeout(() => {
       setHasSearched(false);
     }, 3000);
@@ -65,7 +64,7 @@ const Landing = () => {
   );
 
   //if user has book more than 1 but less than 2 tickets disable book bus btn
-  const disablebookButton = userTickets.length >= 2;
+  const disablebookButton = userTickets.length >= 5;
   useEffect(() => {
     if (disablebookButton) {
       setShowmessage(true);
@@ -77,22 +76,28 @@ const Landing = () => {
 
   //search button
   const isButtonDisabled = !start || !end;
+
+  //date for popular routes
+
+  const date = new Date();
+  const presentDate = date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-2">
       {/* Input Form */}
       <form className="flex flex-wrap items-center justify-center gap-4 w-full max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
         <input
           type="text"
           className="input bg-slate-100 input-bordered w-[200px] p-4 rounded-md"
           name="start"
-          placeholder="From"
+          placeholder="Where from ?"
           value={start}
           onChange={handleInputChange}
         />
         <input
           type="text"
           name="end"
-          placeholder="Destination"
+          placeholder="Where to ?"
           className="input bg-slate-100 input-bordered w-[200px] p-4 rounded-md"
           value={end}
           onChange={handleInputChange}
@@ -146,7 +151,11 @@ const Landing = () => {
                       <Link
                         to={`/book/${bus.busPosition}`}
                         className="bg-blue-500 text-white px-6 py-3 rounded-md mt-4 w-full text-center hover:bg-blue-600 transition duration-300"
-                        onClick={() => localStorage.setItem("price", bus.price)}
+                        onClick={() => {
+                          localStorage.setItem("price", bus.price);
+                          localStorage.setItem("time", bus.time);
+                          localStorage.setItem("busPosition", bus.busPosition);
+                        }}
                       >
                         Book Bus
                       </Link>
@@ -155,11 +164,8 @@ const Landing = () => {
                 </li>
               ))
             : hasSearched && (
-                <div className="flex justify-center mt-4">
-                  <div
-                    role="alert"
-                    className="alert alert-warning flex items-center w-full max-w-lg p-4 border border-yellow-300 rounded-lg bg-yellow-100 text-yellow-700"
-                  >
+                <div className="col-span-full flex justify-center">
+                  <span className="alert alert-warning flex items-center w-full max-w-lg p-4 border border-yellow-300 rounded-lg bg-yellow-100 text-yellow-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 shrink-0"
@@ -173,8 +179,8 @@ const Landing = () => {
                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                       />
                     </svg>
-                    <span>No buses found!</span>
-                  </div>
+                    <p className="text-center flex-1"> No Buses found!</p>
+                  </span>
                 </div>
               )}
         </ul>
@@ -218,7 +224,13 @@ const Landing = () => {
                     <Link
                       to={`/book/${city.busPosition}`}
                       className="bg-green-500 text-white px-6 py-3 rounded-md mt-4 w-full text-center hover:bg-green-600 transition duration-300"
-                      onClick={() => localStorage.setItem("price", city.price)}
+                      onClick={() => {
+                        localStorage.setItem("price", city.price);
+                        localStorage.setItem("busPosition", city.busPosition);
+                        localStorage.setItem("time", city.time);
+                        localStorage.setItem("date", presentDate);
+                        localStorage.setItem("stops", city.stops);
+                      }}
                     >
                       Book Bus
                     </Link>

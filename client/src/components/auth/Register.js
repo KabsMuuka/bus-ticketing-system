@@ -8,14 +8,12 @@ import { register } from "../../actions/auth";
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     phoneNumber: "",
     password: "",
     password2: "",
-    gender: "",
   });
 
-  const { name, email, phoneNumber, password, password2, gender } = formData;
+  const { name, phoneNumber, password, password2 } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,7 +23,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert("Passwords do not match", "danger");
     } else {
-      register({ name, email, phoneNumber, gender, password });
+      register({ name, phoneNumber, password });
     }
   };
 
@@ -68,26 +66,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   onChange={onChange}
                 />
               </div>
+
               <div className="mb-4">
                 <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Email
-                </label>
-                <input
-                  required
-                  name="email"
-                  placeholder="Ex: example@gmail.com"
-                  value={email}
-                  type="email"
-                  className="input bg-slate-200 input-bordered w-full max-w-xs"
-                  onChange={onChange}
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="phoneNumber"
+                  htmlFor="phonenumber"
                   className="block text-sm font-medium text-gray-700"
                 >
                   Phone Number
@@ -101,31 +83,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   className="input bg-slate-200 input-bordered w-full max-w-xs"
                   onChange={onChange}
                 />
-              </div>
-
-              <div className="mb-4 flex items-center">
-                <input
-                  required
-                  type="radio"
-                  id="Male"
-                  name="gender"
-                  value="Male"
-                  className="mr-2"
-                  onChange={onChange}
-                />
-                <label htmlFor="Male" className="mr-4">
-                  Male
-                </label>
-                <input
-                  required
-                  type="radio"
-                  id="Female"
-                  name="gender"
-                  value="Female"
-                  className="mr-2 bg-slate-300"
-                  onChange={onChange}
-                />
-                <label htmlFor="Female">Female</label>
               </div>
 
               <div className="mb-4">

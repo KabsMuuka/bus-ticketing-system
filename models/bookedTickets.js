@@ -20,10 +20,6 @@ const BookedTickets = sequelize.define("BookedTickets", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  reservedSeats: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   selectedBusId: {
     type: DataTypes.STRING,
   },

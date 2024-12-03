@@ -63,6 +63,7 @@ const Profile = () => {
   };
 
   let filteredTickets_uniqueCodes;
+
   return (
     <Fragment>
       <button className="mt-2 flex items-center space-x-1">
@@ -83,12 +84,9 @@ const Profile = () => {
           </h3>
           <h4 className="text-lg text-gray-200">
             <i className="fas fa-globe fa-2x"></i>{" "}
-            {currentUser && currentUser.email}
+            {currentUser && currentUser.phoneNumber}
           </h4>
           <div className="flex items-center justify-between mt-2">
-            <h3 className="text-gray-200">
-              {currentUser && currentUser.gender}
-            </h3>
             <button
               className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
               onClick={() => handle_deleteAccount(currentUser.id)}
@@ -108,6 +106,7 @@ const Profile = () => {
                 .filter((ticket) => ticket.userId === currentUser.id)
                 .map((data) => {
                   filteredTickets_uniqueCodes = data.uniqueCode;
+
                   return (
                     <div
                       key={data.id}
@@ -134,6 +133,7 @@ const Profile = () => {
                       <h3 className="text-lg font-semibold">
                         {data.busPosition}
                       </h3>
+
                       <h5 className="text-gray-600">
                         Route: {data.from + "-" + data.to}
                       </h5>

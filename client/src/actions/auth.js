@@ -12,7 +12,6 @@ import {
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
-import { useNavigate } from "react-router-dom";
 
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -42,13 +41,9 @@ export const register =
       },
     };
 
-    const navigate = useNavigate();
-
     const body = JSON.stringify({
       name,
-      email,
       phoneNumber,
-      gender,
       password,
     });
     try {
@@ -70,14 +65,14 @@ export const register =
   };
 
 //user login
-export const login = (email, password) => async (dispatch) => {
+export const login = (phoneNumber, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ email, password });
+  const body = JSON.stringify({ phoneNumber, password });
   try {
     const res = await axios.post("/api/login", body, config);
 

@@ -18,13 +18,14 @@ router.post("/", auth, async (req, res) => {
     from,
     to,
     price,
-    reservedSeats,
     time,
     date,
     busPosition,
     uniqueCode,
   } = req.body;
 
+  console.log(req.body);
+  console.log(typeof price);
   const currentUserID = Number(currentUserId);
 
   try {
@@ -42,7 +43,6 @@ router.post("/", auth, async (req, res) => {
         from,
         to,
         price,
-        reservedSeats,
         time,
         date,
         busPosition,

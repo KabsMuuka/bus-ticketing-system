@@ -13,18 +13,14 @@ router.post(
   "/",
   [
     check("name").notEmpty().withMessage("Name is required"),
-    check("email").isEmail().withMessage("Valid email is required"),
-    check("phoneNumber")
-      .isMobilePhone()
-      .withMessage("Valid phone number is required"),
-    check("gender").notEmpty().withMessage("Gender is required"),
+    check("phoneNumber").notEmpty().withMessage("Phone number is required"), // Remove isMobilePhone temporarily
     check("password")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters long"),
   ],
 
   async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const errors = validationResult(req);
     // Check errors array
     console.log("Validation Errors:", errors.array());
@@ -33,12 +29,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, phoneNumber, gender, password } = req.body;
+    const { name, phoneNumber, password } = req.body;
 
     // console.log("from body", req.body);
 
     try {
-      let user = await User.findOne({ where: { email } }); // Use Sequelize's findOne method
+      let user = await User.findOne({ where: { phoneNumber } }); // Use Sequelize's findOne method
 
       if (user) {
         return res
@@ -48,9 +44,7 @@ router.post(
 
       user = await User.create({
         name,
-        email,
         phoneNumber,
-        gender,
         password: await bcrypt.hash(password, 10),
       });
 

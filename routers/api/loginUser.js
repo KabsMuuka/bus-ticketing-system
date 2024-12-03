@@ -10,19 +10,22 @@ const { check, validationResult } = require("express-validator");
 router.post(
   "/",
   [
-    check("email", "Please add a valid email").isEmail(),
+    check("phoneNumber").notEmpty().withMessage("Phone number is required"),
+
     check("password", "please enter a password").exists(),
   ],
   async (req, res) => {
+    console.log(req.body); // Log the found user to check
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { phoneNumber, password } = req.body;
 
     try {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({ where: { phoneNumber } });
 
       if (!user) {
         return res

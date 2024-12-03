@@ -39,7 +39,7 @@ import EditpriceAll from "../layout/admin/EditpriceAll";
 import BookedTickets from "../layout/admin/bookedTickets";
 
 //
-
+//verify number
 const MyRoutes = () => {
   return (
     <section className="container">
@@ -55,7 +55,6 @@ const MyRoutes = () => {
         <Route path="/editprice" element={<Editprice />} />
         <Route path="/editpriceAll" element={<EditpriceAll />} />
         <Route path="/bookedtickets" element={<BookedTickets />} />
-
         <Route
           path="/dashboard"
           element={<PrivateRoute element={<Dashboard />} />}

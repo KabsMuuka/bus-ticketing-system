@@ -8,9 +8,26 @@ import { getCurrentProfile } from "../../../actions/profile";
 export default function TicketPage() {
   const dispatch = useDispatch();
   const [qrSrc, setQrSrc] = useState("");
-
+  const [price, setPrice] = useState("");
   const getcurrentUser = useSelector((state) => state.profile.getCurrentUser);
 
+  // Retrieve and parse passenger names
+  const passNames = localStorage.getItem("passengerNames");
+  const parsedNames = passNames ? JSON.parse(passNames) : {}; // Parse safely
+
+  // Count the number of passengers
+  const count = Object.keys(parsedNames).length; // Count the number of keys
+
+  // Retrieve and parse price
+  const calculatePrice = localStorage.getItem("price");
+  const numPrice = Number(calculatePrice); // Convert price to a number
+
+  // Calculate the final price
+  const finalPrice = count * numPrice;
+  // Calculate the final price
+  const savePriceToDB = finalPrice.toString();
+
+  console.log(finalPrice);
   useEffect(() => {
     const uniqueCode = localStorage.getItem("uniqueCode");
     if (uniqueCode) {
@@ -27,12 +44,11 @@ export default function TicketPage() {
   useEffect(() => {
     const saveData = () => {
       const formData = {
-        passengerName: getcurrentUser.name || "Guest",
+        passengerName: localStorage.getItem("passengerNames"),
         currentUserId: localStorage.getItem("currentUserId"),
         from: localStorage.getItem("start"),
         to: localStorage.getItem("destination"),
-        price: localStorage.getItem("price"),
-        reservedSeats: localStorage.getItem("reservedSeats"),
+        price: savePriceToDB,
         time: localStorage.getItem("time"),
         date: localStorage.getItem("date"),
         busPosition: localStorage.getItem("busPosition"),
@@ -56,37 +72,62 @@ export default function TicketPage() {
     const from = localStorage.getItem("start");
     const to = localStorage.getItem("destination");
 
-    return (
-      <div className={styles.locationData}>
-        <h2>{busPosition}</h2>
-        <p>
-          <strong>From:</strong> {from}
-        </p>
-        <p>
-          <strong>Destination:</strong> {to}
-        </p>
-      </div>
-    );
+    if (from && to) {
+      return (
+        <div className={styles.locationData}>
+          <h2>{busPosition}</h2>
+          <p>
+            <strong>From:</strong> {from}
+          </p>
+          <p>
+            <strong>Destination:</strong> {to}
+          </p>
+        </div>
+      );
+    } else {
+      const stops = localStorage.getItem("stops");
+
+      return (
+        <div className={styles.locationData}>
+          <h2>{busPosition}</h2>
+          <p>
+            <strong>Routes: </strong> {stops.join("-")}
+          </p>
+        </div>
+      );
+    }
   };
 
   const getPassengerNames = () => {
-    const passengerName = getcurrentUser.name || "Geust";
-    return passengerName.length > 0 ? (
-      <span>{passengerName}</span>
-    ) : (
-      <p>No passenger names available</p>
+    const passengerData = localStorage.getItem("passengerNames");
+
+    // Parse the stored data safely
+    let passengers = {};
+    try {
+      passengers = passengerData ? JSON.parse(passengerData) : {};
+    } catch (error) {
+      console.error("Error parsing passenger data:", error);
+    }
+
+    // Ensure passengers is a valid object
+    if (Object.keys(passengers).length === 0) {
+      return <p>No passenger names available</p>;
+    }
+
+    // Map through the object to render seat numbers and names
+    return (
+      <ul>
+        {Object.entries(passengers).map(([seat, name], index) => (
+          <li key={index} className="mb-2">
+            <span className="font-bold">Seat: {seat}</span> -{" "}
+            <span>Name: {name}</span>
+          </li>
+        ))}
+      </ul>
     );
   };
 
-  const getSeatNumbers = () => (
-    <span className={styles.seatNo}>
-      {localStorage.getItem("reservedSeats")}
-    </span>
-  );
-
-  const getPrice = () => (
-    <span className={styles.price}>{localStorage.getItem("price")}</span>
-  );
+  const getPrice = () => <span className={styles.price}>{finalPrice}</span>;
 
   const getDateTime = () => {
     const date = localStorage.getItem("date");
@@ -128,7 +169,6 @@ export default function TicketPage() {
             </section>
             <section className={styles.ticketSection}>
               {getLocationData()}
-              <h3>Seat Number: {getSeatNumbers()}</h3>
               <p>{getDateTime()}</p>
             </section>
             <section className={styles.ticketSection}>

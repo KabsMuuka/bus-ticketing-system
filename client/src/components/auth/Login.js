@@ -34,11 +34,11 @@ const Login = ({ login, isAuthenticated }) => {
 
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
+    phoneNumber: "",
     password: "",
   });
 
-  const { email, password } = formData;
+  const { phoneNumber, password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,7 +52,7 @@ const Login = ({ login, isAuthenticated }) => {
       setLoading(false);
     }, 3000);
 
-    login(email, password);
+    login(phoneNumber, password);
   };
 
   if (isAuthenticated) {
@@ -130,16 +130,19 @@ const Login = ({ login, isAuthenticated }) => {
           >
             <div className="mb-4">{loading && <Spinner />}</div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium mb-1">
-                Email
+              <label
+                htmlFor="phoneNumber"
+                className="block text-sm font-medium mb-1"
+              >
+                Phone number
               </label>
               <input
                 required
                 className="input text-black bg-slate-200 input-bordered w-full max-w-xs"
-                name="email"
-                placeholder="example@gmail.com"
-                value={email}
-                type="email"
+                name="phoneNumber"
+                placeholder="077030xx02"
+                value={phoneNumber}
+                type="tel"
                 onChange={(e) => onChange(e)}
               />
             </div>

@@ -18,7 +18,7 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
   const storedSeats = useSelector((state) => state.profile.getSeat_2);
   const getcurrentUser = useSelector((state) => state.profile.getCurrentUser);
 
-  const [name, setName] = useState([]);
+  const [names, setNames] = useState({});
   const [arrowDown, setArrowDown] = useState(false);
   const [gender, setGender] = useState([]);
   const [reservedSeat, setReservedSeat] = useState([]);
@@ -59,10 +59,13 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   const handlePassengerName = (e, seatNo) => {
     const value = e.target.value;
-    setName((prevNames) => {
-      const updatedNames = [...prevNames, value];
-      localStorage.setItem("passengerName", JSON.stringify(updatedNames));
-      return updatedNames;
+    setNames((prevNames) => {
+      const updatedNames = {
+        ...prevNames, // Preserve existing key-value pairs
+        [seatNo]: value, // Add or update the name for the specific seat
+      };
+      localStorage.setItem("passengerNames", JSON.stringify(updatedNames)); // Store the updated names in localStorage
+      return updatedNames; // Update state
     });
   };
 
@@ -120,32 +123,10 @@ const SeatSelection = ({ auth: { isAuthenticated, loading }, logout }) => {
             type="text"
             placeholder="Enter Name"
             onBlur={(e) => handlePassengerName(e, seat)}
-            value={currentUser}
-            disabled
-            className="w-full px-3 py-2 bg-slate-300 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={names[seat] || ""}
+            onChange={(e) => handlePassengerName(e, seat)}
+            className="w-full bg-slate-300 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {/* <div className="flex space-x-4">
-            <label className="inline-flex items-center">
-              <input
-                type="radio"
-                name={`gender-${seat}`}
-                value="Male"
-                onClick={(e) => handleGender(e, seat)}
-                className="form-radio text-blue-600"
-              />
-              <span className="ml-2">Male</span>
-            </label>
-            <label className="inline-flex items-center">
-              <input
-                type="radio"
-                name={`gender-${seat}`}
-                value="Female"
-                onClick={(e) => handleGender(e, seat)}
-                className="form-radio text-blue-600"
-              />
-              <span className="ml-2">Female</span>
-            </label>
-          </div> */}
         </form>
       </div>
     ));

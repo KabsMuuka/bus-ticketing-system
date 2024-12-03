@@ -8,7 +8,9 @@ const router = express.Router();
 router.get("/", (req, res) => res.send("bus part "));
 
 router.get("/:start/:end", async (req, res) => {
-  const stops_ = [req.params.start, req.params.end];
+  const stops_ = [req.params.start, req.params.end].map((stop) =>
+    stop.toLowerCase()
+  ); //convert to lower case
 
   try {
     const buses = await Buses.findAll({
