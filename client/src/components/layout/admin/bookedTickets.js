@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -57,15 +57,37 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
           <div className="flex flex-wrap gap-4 justify-center bg-slate-200 p-4">
             {bookedTickets.map((ticket) => {
               const date = ticket.date.split("T")[0];
+              let reservedSeat = "";
+              let passengerName = "";
+
+              try {
+                // Parse the JSON string into an object
+                const parsedPassenger = JSON.parse(ticket.passengerName);
+
+                // Extract seat number and passenger name
+                for (const [seatNumber, name] of Object.entries(
+                  parsedPassenger
+                )) {
+                  reservedSeat = seatNumber;
+                  passengerName = name;
+                }
+              } catch (error) {
+                console.error(
+                  "Error parsing passengerName:",
+                  ticket.passengerName,
+                  error
+                );
+              }
+
               return (
                 <>
                   <div
                     key={ticket.id}
                     className="w-64 bg-white shadow-md p-4 rounded-md flex-shrink-0"
                   >
-                    <h3 className="font-bold text-lg">
-                      {ticket.passengerName}
-                    </h3>
+                    <h3 className="font-bold text-lg">{passengerName}</h3>
+
+                    <h3 className="font-bold text-lg">{reservedSeat}</h3>
 
                     <p className="text-sm">{ticket.busPosition}</p>
 

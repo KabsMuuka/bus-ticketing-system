@@ -27,6 +27,7 @@ const Profile = () => {
     useSelector((state) => state.profile.getCurrentUser) || [];
   const savedTickets = useSelector((state) => state.profile.getTickets) || [];
 
+  console.log(savedTickets);
   // Generating QR Code
   const [QRCode, setQrCode] = useState([]);
 

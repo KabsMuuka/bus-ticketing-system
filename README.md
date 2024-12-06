@@ -116,3 +116,9 @@ Follow the following steps to get development environment running.
   ```
 
 ---
+
+admin panel
+
+1. is able to update the bus ticketing
+2. is able to view booked tickets
+3. access to reports analytics

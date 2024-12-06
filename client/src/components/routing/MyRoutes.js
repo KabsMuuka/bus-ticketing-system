@@ -37,7 +37,7 @@ import Admindashboard from "../layout/admin/Admindashboard";
 import Editprice from "../layout/admin/Editprice";
 import EditpriceAll from "../layout/admin/EditpriceAll";
 import BookedTickets from "../layout/admin/bookedTickets";
-
+import Reports from "../layout/admin/Reports";
 //
 //verify number
 const MyRoutes = () => {
@@ -55,6 +55,8 @@ const MyRoutes = () => {
         <Route path="/editprice" element={<Editprice />} />
         <Route path="/editpriceAll" element={<EditpriceAll />} />
         <Route path="/bookedtickets" element={<BookedTickets />} />
+        <Route path="/report" element={<Reports />} />
+
         <Route
           path="/dashboard"
           element={<PrivateRoute element={<Dashboard />} />}

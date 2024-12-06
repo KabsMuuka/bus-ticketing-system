@@ -69,14 +69,18 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
     <>
       <main className="p-2">
         {/* logout */}
-        {isAuthenticated && (
+        {/* {isAuthenticated && (
           <Link to={"/login"} onClick={logout}>
             <span className="p-1 bg-red-600 rounded-md text-white">
               {" "}
               Logout
             </span>
           </Link>
-        )}
+        )} */}
+        <Link to={"/login"} onClick={logout}>
+          <span className="p-1 bg-red-600 rounded-md text-white"> Logout</span>
+        </Link>
+
         {/* logout */}
         <h1 className="text-center font-bold text-2xl p-3">Admin Panel</h1>
         <p className="text-center text-sm">
@@ -90,10 +94,15 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
           >
             Booked Tickets
           </Link>
+
+          <Link
+            className="bg-blue-600 text-white p-1 rounded-md hover:text-blue-800 m-1 "
+            to="/report"
+          >
+            reports
+          </Link>
         </p>
-
         {/* bookedTicket */}
-
         <div className="flex flex-wrap gap-4 justify-center bg-slate-200 p-4 rounded-md">
           {busRoutes.map((route) => {
             return (
@@ -103,7 +112,6 @@ const AdminPanel = ({ auth: { isAuthenticated }, logout }) => {
             );
           })}
         </div>
-
         <div>
           <div className="flex flex-wrap gap-4 justify-center bg-slate-200 p-4">
             {AllBusRoutes.flat().map((bus) => (

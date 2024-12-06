@@ -82,6 +82,8 @@ const Landing = () => {
   const date = new Date();
   const presentDate = date.toISOString().split("T")[0]; // Format as YYYY-MM-DD
 
+  const to = busData.map((bus) => bus.stops[1]);
+
   return (
     <div className="container mx-auto px-4 py-2">
       {/* Input Form */}
@@ -155,6 +157,7 @@ const Landing = () => {
                           localStorage.setItem("price", bus.price);
                           localStorage.setItem("time", bus.time);
                           localStorage.setItem("busPosition", bus.busPosition);
+                          localStorage.setItem("to", to);
                         }}
                       >
                         Book Bus

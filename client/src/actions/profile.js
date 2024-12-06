@@ -2,6 +2,7 @@ import axios from "axios";
 import { setAlert } from "./alert";
 
 import {
+  USER_LOADED,
   CLEAR_PROFILE,
   GET_PROFILE,
   PROFILE_ERROR,
@@ -258,7 +259,6 @@ export const addTicket = (formData) => async (dispatch) => {
 //Get tickets
 export const getTickets = () => async (dispatch) => {
   const res = await axios.get("/api/getTickets");
-  // console.log("gettickets", res);
   try {
     dispatch({
       type: GET_TICKETS,

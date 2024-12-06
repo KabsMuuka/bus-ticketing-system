@@ -26,6 +26,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
               Sign in
             </Link>
             <span>or</span>
+
             <Link
               className="text-blue-600 underline hover:text-blue-800"
               to="/register"

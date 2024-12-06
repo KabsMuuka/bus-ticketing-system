@@ -25,6 +25,7 @@ router.post("/", auth, async (req, res) => {
   } = req.body;
 
   console.log(req.body);
+
   console.log(typeof price);
   const currentUserID = Number(currentUserId);
 

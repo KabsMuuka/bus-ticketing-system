@@ -8,8 +8,6 @@ import { getCurrentProfile } from "../../../actions/profile";
 export default function TicketPage() {
   const dispatch = useDispatch();
   const [qrSrc, setQrSrc] = useState("");
-  const [price, setPrice] = useState("");
-  const getcurrentUser = useSelector((state) => state.profile.getCurrentUser);
 
   // Retrieve and parse passenger names
   const passNames = localStorage.getItem("passengerNames");
@@ -47,13 +45,15 @@ export default function TicketPage() {
         passengerName: localStorage.getItem("passengerNames"),
         currentUserId: localStorage.getItem("currentUserId"),
         from: localStorage.getItem("start"),
-        to: localStorage.getItem("destination"),
+        to: localStorage.getItem("end"),
         price: savePriceToDB,
         time: localStorage.getItem("time"),
         date: localStorage.getItem("date"),
         busPosition: localStorage.getItem("busPosition"),
         uniqueCode: localStorage.getItem("uniqueCode"),
       };
+
+      console.log(formData);
 
       if (Object.values(formData).some((value) => !value)) {
         console.error(
@@ -91,7 +91,7 @@ export default function TicketPage() {
         <div className={styles.locationData}>
           <h2>{busPosition}</h2>
           <p>
-            <strong>Routes: </strong> {stops.join("-")}
+            <strong>Routes: </strong> {stops + "-"}
           </p>
         </div>
       );
